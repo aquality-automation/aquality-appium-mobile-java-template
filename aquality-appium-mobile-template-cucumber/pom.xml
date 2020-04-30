@@ -19,7 +19,7 @@
     <dependencies>
         <dependency>
             <groupId>com.github.aquality-automation</groupId>
-            <artifactId>aquality-appium-mobile-java-template-project</artifactId>
+            <artifactId>aquality-appium-mobile-template</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
