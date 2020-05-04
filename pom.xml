@@ -23,7 +23,6 @@
     </modules>
 
     <properties>
-        <aquality.appium.mobile.version>1.0.0</aquality.appium.mobile.version>
         <aspectj.version>1.8.10</aspectj.version>
     </properties>
 
@@ -31,7 +30,7 @@
         <dependency>
             <groupId>com.github.aquality-automation</groupId>
             <artifactId>aquality-appium-mobile</artifactId>
-            <version>${aquality.appium.mobile.version}</version>
+            <version>1.1.0</version>
         </dependency>
 
         <dependency>

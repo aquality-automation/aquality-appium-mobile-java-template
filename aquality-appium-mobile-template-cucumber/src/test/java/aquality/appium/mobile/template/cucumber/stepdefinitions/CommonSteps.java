@@ -1,16 +1,19 @@
 package aquality.appium.mobile.template.cucumber.stepdefinitions;
 
-import aquality.appium.mobile.application.AqualityServices;
+import aquality.appium.mobile.screens.screenfactory.IScreenFactory;
 import aquality.appium.mobile.template.screens.interfaces.IAlert;
 import io.cucumber.java.en.Then;
 import org.testng.Assert;
+
+import javax.inject.Inject;
 
 public class CommonSteps {
 
     private final IAlert alert;
 
-    public CommonSteps() {
-        alert = AqualityServices.getScreenFactory().getScreen(IAlert.class);
+    @Inject
+    public CommonSteps(IScreenFactory screenFactory) {
+        alert = screenFactory.getScreen(IAlert.class);
     }
 
     @Then("'{}' alert appears")

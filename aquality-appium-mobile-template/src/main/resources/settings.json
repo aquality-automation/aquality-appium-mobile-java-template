@@ -2,17 +2,17 @@
   "platformName" : "android",
   "isRemote": true,
   "remoteConnectionUrl": "http://127.0.0.1:4723/wd/hub",
-  "packageNameWithScreens": "aquality.appium.mobile.template.screens",
+  "screensLocation": "aquality.appium.mobile.template.screens",
 
   "driverSettings": {
     "android": {
-      "applicationPath": "./src/test/resources/apps/ApiDemos-debug.apk",
+      "applicationPath": "./src/test/resources/applications/TheApp-v1.10.0.apk",
       "capabilities": {
         "deviceName": "Android Emulator"
       }
     },
     "ios": {
-      "applicationPath": "./src/test/resources/apps/TestApp.app.zip",
+      "applicationPath": "./src/test/resources/applications/TheApp-v1.10.0.app.zip",
       "capabilities": {
         "deviceName": "iOS Simulator",
         "automationName": "XCUITest",
