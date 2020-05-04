@@ -131,7 +131,7 @@ jobs:
   - task: CopyFiles@2
     displayName: 'Copy failure screenshots and test logs'
     inputs:
-      SourceFolder: '$(Build.SourcesDirectory)/target'
+      SourceFolder: '$(Build.SourcesDirectory)/aquality-appium-mobile-template-cucumber/target'
       Contents: |
         surefire-reports/failure_screenshots/*.png
         log/*.log
