@@ -24,7 +24,7 @@ Template for [aquality-appium-mobile-java](https://github.com/aquality-automatio
 [allure.properties](https://github.com/aquality-automation/aquality-appium-mobile-java-template/blob/master/aquality-appium-mobile-template/src/main/resources/allure.properties) is a part of Allure Report configuration. See details [here](https://docs.qameta.io/allure/). 
 
 > **NOTE:**
-> Do not store application executable under source control as [here](https://github.com/aquality-automation/aquality-appium-mobile-java-template/blob/master/aquality-appium-mobile-template-cucmber/src/test/resources/applications).
+> Do not store application executable under source control as [here](https://github.com/aquality-automation/aquality-appium-mobile-java-template/blob/master/aquality-appium-mobile-template-cucumber/src/test/resources/applications).
 > This is done only for demo purpose. For example, you can implement task in your CI system that will download and install necessary version of your application under the test. The delivery of application builds/updates may vary.
 
 ### Tests execution
