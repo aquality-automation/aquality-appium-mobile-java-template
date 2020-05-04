@@ -8,7 +8,12 @@
     "android": {
       "applicationPath": "./src/test/resources/applications/TheApp-v1.10.0.apk",
       "capabilities": {
-        "deviceName": "Android Emulator"
+        "platformName": "Android",
+        "deviceName": "Android Emulator",
+        "automationName": "UiAutomator2",
+        "appPackage": "io.cloudgrey.the_app",
+        "appActivity": "io.cloudgrey.the_app.MainActivity",
+        "adbExecTimeout": 10000
       }
     },
     "ios": {
