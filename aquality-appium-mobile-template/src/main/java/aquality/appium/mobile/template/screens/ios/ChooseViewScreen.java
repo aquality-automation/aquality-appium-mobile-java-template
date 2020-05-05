@@ -2,7 +2,7 @@ package aquality.appium.mobile.template.screens.ios;
 
 import aquality.appium.mobile.screens.IOSScreen;
 import aquality.appium.mobile.template.screens.interfaces.IChooseViewScreen;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import org.apache.commons.lang3.NotImplementedException;
 
 import static io.appium.java_client.MobileBy.AccessibilityId;
 
@@ -16,6 +16,6 @@ public class ChooseViewScreen extends IOSScreen implements IChooseViewScreen {
 
     @Override
     public void openView(final String viewName) {
-        throw new NotImplementedException();
+        throw new NotImplementedException("iOS screens are not implemented");
     }
 }

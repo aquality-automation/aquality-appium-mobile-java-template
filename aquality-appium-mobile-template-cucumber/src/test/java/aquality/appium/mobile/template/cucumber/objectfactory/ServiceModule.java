@@ -9,7 +9,7 @@ public class ServiceModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(IScreenFactory.class).to(AqualityServices.getScreenFactory().getClass());
+        bind(IScreenFactory.class).toInstance(AqualityServices.getScreenFactory());
         bind(ScreenshotProvider.class).toInstance(new ScreenshotProvider());
     }
 }

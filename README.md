@@ -19,7 +19,7 @@ Template for [aquality-appium-mobile-java](https://github.com/aquality-automatio
   - **objectfactory/**: [DI container](https://cucumber.io/docs/cucumber/state/#how-to-use-di) configuration
 
 ### Configuration
-[settings.json](https://github.com/aquality-automation/aquality-appium-mobile-java-template/blob/master/aquality-appium-mobile-template/src/main/resources/settings.json) file contains settings of Aquality Appium Mobile library. Additional information you can find [here](https://github.com/aquality-automation/aquality-selenium-java/wiki/Overview-(English)).
+[settings.json](https://github.com/aquality-automation/aquality-appium-mobile-java-template/blob/master/aquality-appium-mobile-template/src/main/resources/settings.json) file contains settings of Aquality Appium Mobile library.
 
 [allure.properties](https://github.com/aquality-automation/aquality-appium-mobile-java-template/blob/master/aquality-appium-mobile-template/src/main/resources/allure.properties) is a part of Allure Report configuration. See details [here](https://docs.qameta.io/allure/). 
 
