@@ -1,0 +1,52 @@
+{
+  "platformName" : "android",
+  "isRemote": true,
+  "remoteConnectionUrl": "http://127.0.0.1:4723/wd/hub",
+  "screensLocation": "aquality.appium.mobile.template.screens",
+
+  "driverSettings": {
+    "android": {
+      "applicationPath": "./src/test/resources/applications/TheApp-v1.10.0.apk",
+      "capabilities": {
+        "platformName": "Android",
+        "deviceName": "Android Emulator",
+        "automationName": "UiAutomator2",
+        "appPackage": "io.cloudgrey.the_app",
+        "appActivity": "io.cloudgrey.the_app.MainActivity",
+        "adbExecTimeout": 10000
+      }
+    },
+    "ios": {
+      "applicationPath": "./src/test/resources/applications/TheApp-v1.10.0.app.zip",
+      "capabilities": {
+        "deviceName": "iOS Simulator",
+        "automationName": "XCUITest",
+        "platformName": "iOS",
+        "udid": "<SIMULATOR_ID/DEVICE_ID>"
+      }
+    }
+  },
+  "localServiceSettings": {
+    "arguments": {
+      "--allow-insecure": "chromedriver_autodownload"
+    },
+    "capabilities": {
+    }
+  },
+  "timeouts": {
+    "timeoutImplicit" : 0,
+    "timeoutCondition" : 15,
+    "timeoutPollingInterval": 300,
+    "timeoutCommand":120
+  },
+  "retry": {
+    "number": 2,
+    "pollingInterval": 300
+  },
+  "logger": {
+    "language": "en"
+  },
+  "elementCache": {
+    "isEnabled": true
+  }
+}
