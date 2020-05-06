@@ -22,7 +22,7 @@ public class LoginScreen extends IOSScreen implements ILoginScreen {
     @Override
     public ILoginScreen setPassword(final String password) {
         getElementFactory()
-                .getTextBox(iOSNsPredicateString("type == 'XCUIElementTypeSecureTextField' AND name == 'username'"), "Password")
+                .getTextBox(iOSNsPredicateString("type == 'XCUIElementTypeSecureTextField' AND name == 'password'"), "Password")
                 .typeSecret(password);
         return this;
     }
