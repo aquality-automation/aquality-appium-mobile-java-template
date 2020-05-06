@@ -2,28 +2,33 @@ package aquality.appium.mobile.template.screens.ios;
 
 import aquality.appium.mobile.screens.IOSScreen;
 import aquality.appium.mobile.template.screens.interfaces.ILoginScreen;
-import org.apache.commons.lang3.NotImplementedException;
 
-import static io.appium.java_client.MobileBy.AccessibilityId;
+import static io.appium.java_client.MobileBy.*;
 
 public class LoginScreen extends IOSScreen implements ILoginScreen {
 
     public LoginScreen() {
-        super(AccessibilityId("not_implemented"), "Login");
+        super(AccessibilityId("Login"), "Login");
     }
 
     @Override
     public ILoginScreen setUsername(final String username) {
-        throw new NotImplementedException("iOS screens are not implemented");
+        getElementFactory()
+                .getTextBox(iOSNsPredicateString("type == 'XCUIElementTypeTextField' AND name == 'username'"), "Username")
+                .sendKeys(username);
+        return this;
     }
 
     @Override
     public ILoginScreen setPassword(final String password) {
-        throw new NotImplementedException("iOS screens are not implemented");
+        getElementFactory()
+                .getTextBox(iOSNsPredicateString("type == 'XCUIElementTypeSecureTextField' AND name == 'username'"), "Password")
+                .typeSecret(password);
+        return this;
     }
 
     @Override
     public void tapLogin() {
-        throw new NotImplementedException("iOS screens are not implemented");
+        getElementFactory().getButton(iOSClassChain("**/XCUIElementTypeOther[`name == 'loginBtn'`]"), "Login").click();
     }
 }
