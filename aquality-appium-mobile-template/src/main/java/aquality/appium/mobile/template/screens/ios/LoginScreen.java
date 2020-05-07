@@ -29,6 +29,6 @@ public class LoginScreen extends IOSScreen implements ILoginScreen {
 
     @Override
     public void tapLogin() {
-        getElementFactory().getButton(iOSClassChain("**/XCUIElementTypeOther[`name == 'loginBtn'`]"), "Login").click();
+        getElementFactory().getButton(iOSClassChain("**/XCUIElementTypeOther[`name == 'loginBtn'`][2]"), "Login").click();
     }
 }
