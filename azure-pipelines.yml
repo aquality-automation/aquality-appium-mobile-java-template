@@ -124,7 +124,7 @@ jobs:
     displayName: 'Run tests'
     inputs:
       mavenPomFile: 'pom.xml'
-      goals: 'test -DisRemote=true -DplatformName=$(PLATFORM_NAME) -DdriverSettings.ios.capabilities.deviceName="$(IOS_DEVICE_NAME)" -DdriverSettings.ios.capabilities.platformVersion="$(IOS_PLATFORM_VERSION)"'
+      goals: 'test -DisRemote=true -DplatformName=$(PLATFORM_NAME) -DdriverSettings.ios.capabilities.deviceName=\"$(IOS_DEVICE_NAME)\" -DdriverSettings.ios.capabilities.platformVersion=\"$(IOS_PLATFORM_VERSION)\"'
       publishJUnitResults: true
       testResultsFiles: '**/surefire-reports/TEST-*.xml'
       javaHomeOption: 'JDKVersion'
