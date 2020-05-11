@@ -6,23 +6,22 @@
 
   "driverSettings": {
     "android": {
+      "deviceKey": "Android_Emulator",
       "applicationPath": "./src/test/resources/applications/TheApp-v1.10.0.apk",
       "capabilities": {
         "platformName": "Android",
         "automationName": "UiAutomator2",
-        "deviceName": "Android Emulator",
         "appPackage": "io.cloudgrey.the_app",
         "appActivity": "io.cloudgrey.the_app.MainActivity",
         "adbExecTimeout": 10000
       }
     },
     "ios": {
+      "deviceKey": "iOS_Simulator",
       "applicationPath": "./src/test/resources/applications/TheApp-v1.10.0.app.zip",
       "capabilities": {
         "platformName": "iOS",
         "automationName": "XCUITest",
-        "deviceName": "device_name",
-        "platformVersion": "platform_version",
         "bundleId": "io.cloudgrey.the-app"
       }
     }

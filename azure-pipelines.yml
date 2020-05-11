@@ -52,8 +52,6 @@ jobs:
       IOS:
         PLATFORM_NAME: ios
         IOS_SIM_ID: iPhone-11, 13.4
-        IOS_DEVICE_NAME: iPhone 11
-        IOS_PLATFORM_VERSION: 13.4
 
   steps:
   - task: CmdLine@2
@@ -124,7 +122,7 @@ jobs:
     displayName: 'Run tests'
     inputs:
       mavenPomFile: 'pom.xml'
-      goals: 'test -DisRemote=true -DplatformName=$(PLATFORM_NAME) -DdriverSettings.ios.capabilities.deviceName=\"$(IOS_DEVICE_NAME)\" -DdriverSettings.ios.capabilities.platformVersion=\"$(IOS_PLATFORM_VERSION)\"'
+      goals: 'test -DisRemote=true -DplatformName=$(PLATFORM_NAME)'
       publishJUnitResults: true
       testResultsFiles: '**/surefire-reports/TEST-*.xml'
       javaHomeOption: 'JDKVersion'
