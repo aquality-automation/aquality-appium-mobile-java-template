@@ -43,17 +43,17 @@ jobs:
 - job: tests
   displayName: Run tests
   strategy:
-    maxParallel: 1
+    maxParallel: 2
     matrix:
       ANDROID:
+        platformName: android
+        ANDROID_EMU_NAME: test
+        ANDROID_SDK_ID: system-images;android-28;google_apis_playstore;x86
+      IOS:
         platformName: ios
-
-  variables:
-    ANDROID_EMU_NAME: test
-    ANDROID_SDK_ID: system-images;android-28;google_apis_playstore;x86
-    XCODE_VERSION: 10.2
-    IOS_PLATFORM_VERSION: 12.2
-    IOS_DEVICE_NAME: iPhone X
+        IOS_SIM_ID: iPhone-11, 13.4
+        driverSettings.ios.capabilities.deviceName: iPhone 11
+        driverSettings.ios.capabilities.platformVersion: 13.4
 
   steps:
   - task: CmdLine@2
@@ -107,12 +107,9 @@ jobs:
       script: |
         npm install -g ios-sim@9.0.0
         ios-sim showdevicetypes
-        ios-sim start --devicetypeid "iPhone-11, 13.4"
-        #sudo xcode-select -s /Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer
-        #xcrun instruments -s
-        #xcrun instruments -w "iPhone 11 (13.4.1)" - wait for simulator started
-        #sudo xcode-select -s /Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer
-        #xcrun simctl list
+        ios-sim start --devicetypeid "$(IOS_SIM_ID)"
+        echo "Wait 2 minutes for simulator to be ready"
+        sleep 60
     condition: and(succeeded(), eq(variables['platformName'], 'ios'))
 
   - task: CmdLine@2
