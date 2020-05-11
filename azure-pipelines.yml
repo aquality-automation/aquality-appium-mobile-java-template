@@ -46,7 +46,7 @@ jobs:
     maxParallel: 1
     matrix:
       ANDROID:
-        platformName: android
+        platformName: ios
 
   variables:
     ANDROID_EMU_NAME: test
@@ -57,7 +57,7 @@ jobs:
 
   steps:
   - task: CmdLine@2
-    displayName: 'Configure Appium and Android SDK'
+    displayName: 'Configure Appium'
     inputs:
       script: |
         echo "Configuring Environment"
@@ -105,6 +105,8 @@ jobs:
     displayName: 'Configure and start iOS simulator'
     inputs:
       script: |
+        npm install -g ios-sim@9.0.0
+        ios-sim showdevicetypes
         #sudo xcode-select -s /Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer
         #xcrun instruments -s
         #xcrun instruments -w "iPhone 11 (13.4.1)" - wait for simulator started
@@ -118,7 +120,8 @@ jobs:
       script: |
         appium --allow-insecure chromedriver_autodownload &
         echo "Appium server started"
-    condition: succeeded()
+    #condition: succeeded()
+    condition: and(succeeded(), eq(variables['platformName'], 'android'))
 
   - task: Maven@3
     displayName: 'Run tests'
@@ -132,6 +135,7 @@ jobs:
       mavenAuthenticateFeed: false
       effectivePomSkip: false
       sonarQubeRunAnalysis: false
+    condition: and(succeeded(), eq(variables['platformName'], 'android'))
 
   - task: CopyFiles@2
     displayName: 'Copy failure screenshots and test logs'
