@@ -106,8 +106,8 @@ jobs:
         npm install -g ios-sim@9.0.0
         ios-sim showdevicetypes
         ios-sim start --devicetypeid "$(IOS_SIM_ID)"
-        echo "Wait 2 minutes for simulator to be ready"
-        sleep 120
+        echo "Wait for simulator to be ready"
+        sleep 240
     condition: and(succeeded(), eq(variables['PLATFORM_NAME'], 'ios'))
 
   - task: CmdLine@2
@@ -146,6 +146,6 @@ jobs:
     displayName: 'Publish copied artifacts'
     inputs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      ArtifactName: 'drop'
+      ArtifactName: 'drop_$(PLATFORM_NAME)'
       publishLocation: 'Container'
     condition: succeededOrFailed()
