@@ -107,6 +107,7 @@ jobs:
       script: |
         npm install -g ios-sim@9.0.0
         ios-sim showdevicetypes
+        ios-sim start --devicetypeid "iPhone-11, 13.4"
         #sudo xcode-select -s /Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer
         #xcrun instruments -s
         #xcrun instruments -w "iPhone 11 (13.4.1)" - wait for simulator started
@@ -120,8 +121,7 @@ jobs:
       script: |
         appium --allow-insecure chromedriver_autodownload &
         echo "Appium server started"
-    #condition: succeeded()
-    condition: and(succeeded(), eq(variables['platformName'], 'android'))
+    condition: succeeded()
 
   - task: Maven@3
     displayName: 'Run tests'
@@ -135,7 +135,7 @@ jobs:
       mavenAuthenticateFeed: false
       effectivePomSkip: false
       sonarQubeRunAnalysis: false
-    condition: and(succeeded(), eq(variables['platformName'], 'android'))
+    condition: succeeded()
 
   - task: CopyFiles@2
     displayName: 'Copy failure screenshots and test logs'

@@ -22,7 +22,7 @@
         "platformName": "iOS",
         "automationName": "XCUITest",
         "deviceName": "iPhone 11",
-        "platformVersion": "13.3",
+        "platformVersion": "13.4",
         "bundleId": "io.cloudgrey.the-app"
       }
     }
