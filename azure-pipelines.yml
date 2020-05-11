@@ -46,14 +46,14 @@ jobs:
     maxParallel: 2
     matrix:
       ANDROID:
-        platformName: android
+        PLATFORM_NAME: android
         ANDROID_EMU_NAME: test
         ANDROID_SDK_ID: system-images;android-28;google_apis_playstore;x86
       IOS:
-        platformName: ios
+        PLATFORM_NAME: ios
         IOS_SIM_ID: iPhone-11, 13.4
-        driverSettings.ios.capabilities.deviceName: iPhone 11
-        driverSettings.ios.capabilities.platformVersion: 13.4
+        IOS_DEVICE_NAME: iPhone 11
+        IOS_PLATFORM_VERSION: 13.4
 
   steps:
   - task: CmdLine@2
@@ -99,7 +99,7 @@ jobs:
         $ANDROID_HOME/platform-tools/adb wait-for-device
         while [[ $? -ne 0 ]]; do sleep 1; $ANDROID_HOME/platform-tools/adb shell pm list packages; done;
         $ANDROID_HOME/platform-tools/adb devices
-    condition: and(succeeded(), eq(variables['platformName'], 'android'))
+    condition: and(succeeded(), eq(variables['PLATFORM_NAME'], 'android'))
 
   - task: CmdLine@2
     displayName: 'Configure and start iOS simulator'
@@ -110,7 +110,7 @@ jobs:
         ios-sim start --devicetypeid "$(IOS_SIM_ID)"
         echo "Wait 2 minutes for simulator to be ready"
         sleep 60
-    condition: and(succeeded(), eq(variables['platformName'], 'ios'))
+    condition: and(succeeded(), eq(variables['PLATFORM_NAME'], 'ios'))
 
   - task: CmdLine@2
     displayName: 'Start Appium server'
@@ -124,7 +124,7 @@ jobs:
     displayName: 'Run tests'
     inputs:
       mavenPomFile: 'pom.xml'
-      goals: 'test -DisRemote=true -DplatformName=$(platformName)'
+      goals: 'test -DisRemote=true -DplatformName=$(PLATFORM_NAME) -DdriverSettings.ios.capabilities.deviceName=$(IOS_DEVICE_NAME) -DdriverSettings.ios.capabilities.platformVersion=$(IOS_PLATFORM_VERSION)'
       publishJUnitResults: true
       testResultsFiles: '**/surefire-reports/TEST-*.xml'
       javaHomeOption: 'JDKVersion'
