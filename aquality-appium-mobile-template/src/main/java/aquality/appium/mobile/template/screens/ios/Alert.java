@@ -1,24 +1,29 @@
 package aquality.appium.mobile.template.screens.ios;
 
+import aquality.appium.mobile.elements.interfaces.IButton;
+import aquality.appium.mobile.elements.interfaces.ILabel;
 import aquality.appium.mobile.screens.IOSScreen;
 import aquality.appium.mobile.template.screens.interfaces.IAlert;
-import org.apache.commons.lang3.NotImplementedException;
 
-import static io.appium.java_client.MobileBy.AccessibilityId;
+import static io.appium.java_client.MobileBy.*;
 
 public class Alert extends IOSScreen implements IAlert {
 
+    private final ILabel messageLbl = getElementFactory()
+            .getLabel(iOSClassChain("**/XCUIElementTypeOther[$name == 'Alert'$]/XCUIElementTypeStaticText[2]"), "Message");
+    private final IButton okBtn = getElementFactory().getButton(AccessibilityId("OK"), "OK");
+
     public Alert() {
-        super(AccessibilityId("not_implemented"), "Alert");
+        super(iOSNsPredicateString("type == 'XCUIElementTypeAlert' AND name == 'Alert'"), "Alert");
     }
 
     @Override
     public String getMessage() {
-        throw new NotImplementedException("iOS screens are not implemented");
+        return messageLbl.getText();
     }
 
     @Override
     public void tapOk() {
-        throw new NotImplementedException("iOS screens are not implemented");
+        okBtn.click();
     }
 }

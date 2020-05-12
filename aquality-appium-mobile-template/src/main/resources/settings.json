@@ -6,10 +6,10 @@
 
   "driverSettings": {
     "android": {
+      "deviceKey": "Android_Emulator",
       "applicationPath": "./src/test/resources/applications/TheApp-v1.10.0.apk",
       "capabilities": {
         "platformName": "Android",
-        "deviceName": "Android Emulator",
         "automationName": "UiAutomator2",
         "appPackage": "io.cloudgrey.the_app",
         "appActivity": "io.cloudgrey.the_app.MainActivity",
@@ -17,12 +17,12 @@
       }
     },
     "ios": {
+      "deviceKey": "iOS_Simulator",
       "applicationPath": "./src/test/resources/applications/TheApp-v1.10.0.app.zip",
       "capabilities": {
-        "deviceName": "iOS Simulator",
-        "automationName": "XCUITest",
         "platformName": "iOS",
-        "udid": "<SIMULATOR_ID/DEVICE_ID>"
+        "automationName": "XCUITest",
+        "bundleId": "io.cloudgrey.the-app"
       }
     }
   },

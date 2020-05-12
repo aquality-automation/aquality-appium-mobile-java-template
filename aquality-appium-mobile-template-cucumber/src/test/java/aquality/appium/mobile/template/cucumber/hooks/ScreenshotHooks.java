@@ -1,6 +1,6 @@
 package aquality.appium.mobile.template.cucumber.hooks;
 
-import aquality.appium.mobile.template.utilities.ScreenshotProvider;
+import aquality.appium.mobile.template.utilities.IScreenshotProvider;
 import io.cucumber.core.api.Scenario;
 import io.cucumber.java.After;
 
@@ -8,10 +8,10 @@ import javax.inject.Inject;
 
 public class ScreenshotHooks {
 
-    private final ScreenshotProvider screenshotProvider;
+    private final IScreenshotProvider screenshotProvider;
 
     @Inject
-    public ScreenshotHooks(ScreenshotProvider screenshotProvider) {
+    public ScreenshotHooks(IScreenshotProvider screenshotProvider) {
         this.screenshotProvider = screenshotProvider;
     }
 

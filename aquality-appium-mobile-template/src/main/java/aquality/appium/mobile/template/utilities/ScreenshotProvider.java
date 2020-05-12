@@ -9,8 +9,9 @@ import javax.imageio.ImageIO;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-public class ScreenshotProvider {
+public class ScreenshotProvider implements IScreenshotProvider {
 
+    @Override
     public byte[] takeScreenshot() {
         Screenshot fpScreenshot = new AShot()
                 .shootingStrategy(ShootingStrategies.simple())
