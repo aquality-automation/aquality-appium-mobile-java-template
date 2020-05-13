@@ -6,11 +6,11 @@ import aquality.appium.mobile.template.utilities.IScreenshotProvider;
 import aquality.appium.mobile.template.utilities.ScreenshotProvider;
 import com.google.inject.AbstractModule;
 
-public class ServiceModule extends AbstractModule {
+final class ServiceModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(IScreenFactory.class).toInstance(AqualityServices.getScreenFactory());
-        bind(IScreenshotProvider.class).toInstance(new ScreenshotProvider());
+        this.bind(IScreenFactory.class).toInstance(AqualityServices.getScreenFactory());
+        this.bind(IScreenshotProvider.class).toInstance(new ScreenshotProvider());
     }
 }

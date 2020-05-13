@@ -22,7 +22,8 @@ public class ScreenshotProvider implements IScreenshotProvider {
             baos.flush();
             return baos.toByteArray();
         } catch (IOException ioe) {
-            AqualityServices.getLogger().debug("IO Exception during preparing screenshot of full page%nException message", ioe);
+            AqualityServices.getLogger()
+                    .debug("IO Exception during preparing screenshot of full page%nException message", ioe);
             return new byte[] {};
         }
     }

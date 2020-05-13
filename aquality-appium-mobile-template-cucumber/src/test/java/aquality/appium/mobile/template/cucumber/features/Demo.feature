@@ -8,3 +8,10 @@ Feature: Demo
       | Username | MyUsername      |
       | Password | InVal1dPa$$w0rd |
     Then 'Invalid login credentials, please try again' alert appears
+
+  @demo
+  Scenario: ScenarioContext demo
+    When I store '2' as 'value1'
+    And I store '3' as 'value2'
+    And I add 'value1' to 'value2' and store it as 'value3'
+    Then 'value3' should be equal to '5'
