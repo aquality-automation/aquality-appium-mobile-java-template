@@ -1,5 +1,6 @@
 package aquality.appium.mobile.template.cucumber.runners;
 
+import aquality.appium.mobile.template.cucumber.objectfactory.CustomObjectFactory;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 import org.testng.annotations.DataProvider;
@@ -11,12 +12,14 @@ import org.testng.annotations.DataProvider;
                 "aquality.appium.mobile.template.cucumber.transformations",
                 "aquality.appium.mobile.template.cucumber.stepdefinitions"
         },
-        plugin = {"io.qameta.allure.cucumber4jvm.AllureCucumber4Jvm"}
+        plugin = {"io.qameta.allure.cucumber5jvm.AllureCucumber5Jvm"},
+        strict = true,
+        objectFactory = CustomObjectFactory.class
 )
 public class TestRunner extends AbstractTestNGCucumberTests {
 
     @Override
-    @DataProvider(parallel = true)
+    @DataProvider()
     public Object[][] scenarios() {
         return super.scenarios();
     }
