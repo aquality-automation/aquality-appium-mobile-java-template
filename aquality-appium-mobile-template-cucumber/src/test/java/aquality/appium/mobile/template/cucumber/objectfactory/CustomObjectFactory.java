@@ -4,16 +4,17 @@ import aquality.appium.mobile.application.AqualityServices;
 import aquality.appium.mobile.application.MobileModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Stage;
 import cucumber.api.guice.CucumberModules;
 import cucumber.runtime.java.guice.ScenarioScope;
 import io.cucumber.core.backend.ObjectFactory;
 
 public class CustomObjectFactory implements ObjectFactory {
 
-    private Injector injector;
+    private final Injector injector;
 
     public CustomObjectFactory() {
-        this.injector = Guice.createInjector(CucumberModules.createScenarioModule(),
+        this.injector = Guice.createInjector(Stage.PRODUCTION, CucumberModules.createScenarioModule(),
                 new ServiceModule(), new MobileModule(AqualityServices::getApplication));
     }
 
