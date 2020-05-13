@@ -13,7 +13,7 @@
     <artifactId>aquality-appium-mobile-template-cucumber</artifactId>
 
     <properties>
-        <cucumber.version>4.8.1</cucumber.version>
+        <cucumber.version>5.7.0</cucumber.version>
     </properties>
 
     <dependencies>
@@ -28,6 +28,12 @@
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-testng</artifactId>
             <version>${cucumber.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -44,8 +50,8 @@
 
         <dependency>
             <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-cucumber4-jvm</artifactId>
-            <version>2.13.2</version>
+            <artifactId>allure-cucumber5-jvm</artifactId>
+            <version>2.13.3</version>
         </dependency>
     </dependencies>
 </project>

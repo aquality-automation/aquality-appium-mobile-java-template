@@ -5,9 +5,9 @@ import aquality.appium.mobile.application.MobileModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Stage;
-import cucumber.api.guice.CucumberModules;
-import cucumber.runtime.java.guice.ScenarioScope;
 import io.cucumber.core.backend.ObjectFactory;
+import io.cucumber.guice.CucumberModules;
+import io.cucumber.guice.ScenarioScope;
 
 public class CustomObjectFactory implements ObjectFactory {
 

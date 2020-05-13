@@ -1,6 +1,6 @@
 package aquality.appium.mobile.template.cucumber.utilities;
 
-import cucumber.runtime.java.guice.ScenarioScoped;
+import io.cucumber.guice.ScenarioScoped;
 
 import java.util.HashMap;
 import java.util.Map;
