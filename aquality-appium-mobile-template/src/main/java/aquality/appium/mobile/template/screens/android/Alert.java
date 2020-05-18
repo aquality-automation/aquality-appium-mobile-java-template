@@ -1,28 +1,25 @@
 package aquality.appium.mobile.template.screens.android;
 
-import aquality.appium.mobile.elements.interfaces.IButton;
-import aquality.appium.mobile.elements.interfaces.ILabel;
-import aquality.appium.mobile.screens.AndroidScreen;
-import aquality.appium.mobile.template.screens.interfaces.IAlert;
+import aquality.appium.mobile.application.PlatformName;
+import aquality.appium.mobile.screens.screenfactory.ScreenType;
+import org.openqa.selenium.By;
 
 import static org.openqa.selenium.By.id;
 
-public class Alert extends AndroidScreen implements IAlert {
-
-    private final ILabel messageLbl = getElementFactory().getLabel(id("android:id/message"), "Message");
-    private final IButton okBtn = getElementFactory().getButton(id("android:id/button1"), "OK");
+@ScreenType(platform = PlatformName.ANDROID)
+public class Alert extends aquality.appium.mobile.template.screens.abstractions.Alert {
 
     public Alert() {
-        super(id("android:id/alertTitle"), "Alert");
+        super(id("android:id/alertTitle"));
     }
 
     @Override
-    public String getMessage() {
-        return messageLbl.getText();
+    protected By getMessageLblLoc() {
+        return id("android:id/message");
     }
 
     @Override
-    public void tapOk() {
-        okBtn.click();
+    protected By getOkBtnLoc() {
+        return id("android:id/button1");
     }
 }

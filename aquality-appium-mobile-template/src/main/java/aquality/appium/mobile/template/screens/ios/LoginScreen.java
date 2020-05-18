@@ -1,38 +1,30 @@
 package aquality.appium.mobile.template.screens.ios;
 
-import aquality.appium.mobile.elements.interfaces.IButton;
-import aquality.appium.mobile.elements.interfaces.ITextBox;
-import aquality.appium.mobile.screens.IOSScreen;
-import aquality.appium.mobile.template.screens.interfaces.ILoginScreen;
+import aquality.appium.mobile.application.PlatformName;
+import aquality.appium.mobile.screens.screenfactory.ScreenType;
+import org.openqa.selenium.By;
 
 import static io.appium.java_client.MobileBy.*;
 
-public class LoginScreen extends IOSScreen implements ILoginScreen {
-
-    private final ITextBox usernameTxb = getElementFactory()
-            .getTextBox(iOSNsPredicateString("type == 'XCUIElementTypeTextField' AND name == 'username'"), "Username");
-    private final ITextBox passwordTxb = getElementFactory()
-            .getTextBox(iOSNsPredicateString("type == 'XCUIElementTypeSecureTextField' AND name == 'password'"), "Password");
-    private final IButton loginBtn = getElementFactory().getButton(iOSClassChain("**/XCUIElementTypeOther[`name == 'loginBtn'`][2]"), "Login");
+@ScreenType(platform = PlatformName.IOS)
+public class LoginScreen extends aquality.appium.mobile.template.screens.abstractions.LoginScreen {
 
     public LoginScreen() {
-        super(AccessibilityId("Login"), "Login");
+        super(AccessibilityId("Login"));
     }
 
     @Override
-    public ILoginScreen setUsername(final String username) {
-        usernameTxb.sendKeys(username);
-        return this;
+    protected By getUsernameTxbLoc() {
+        return iOSNsPredicateString("type == 'XCUIElementTypeTextField' AND name == 'username'");
     }
 
     @Override
-    public ILoginScreen setPassword(final String password) {
-        passwordTxb.typeSecret(password);
-        return this;
+    protected By getPasswordTxbLoc() {
+        return iOSNsPredicateString("type == 'XCUIElementTypeSecureTextField' AND name == 'password'");
     }
 
     @Override
-    public void tapLogin() {
-        loginBtn.click();
+    protected By getLoginBtnLoc() {
+        return iOSClassChain("**/XCUIElementTypeOther[`name == 'loginBtn'`][2]");
     }
 }
