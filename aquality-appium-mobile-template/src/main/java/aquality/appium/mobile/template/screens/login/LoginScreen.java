@@ -1,4 +1,4 @@
-package aquality.appium.mobile.template.screens.abstractions;
+package aquality.appium.mobile.template.screens.login;
 
 import aquality.appium.mobile.elements.interfaces.IButton;
 import aquality.appium.mobile.elements.interfaces.ITextBox;
@@ -24,12 +24,12 @@ public abstract class LoginScreen extends Screen {
 
     protected abstract By getLoginBtnLoc();
 
-    public aquality.appium.mobile.template.screens.abstractions.LoginScreen setUsername(final String username) {
+    public LoginScreen setUsername(final String username) {
         usernameTxb.sendKeys(username);
         return this;
     }
 
-    public aquality.appium.mobile.template.screens.abstractions.LoginScreen setPassword(final String password) {
+    public LoginScreen setPassword(final String password) {
         passwordTxb.typeSecret(password);
         return this;
     }

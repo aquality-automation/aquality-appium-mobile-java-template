@@ -1,4 +1,4 @@
-package aquality.appium.mobile.template.screens.android;
+package aquality.appium.mobile.template.screens;
 
 import aquality.appium.mobile.application.PlatformName;
 import aquality.appium.mobile.screens.screenfactory.ScreenType;
@@ -7,9 +7,9 @@ import org.openqa.selenium.By;
 import static org.openqa.selenium.By.id;
 
 @ScreenType(platform = PlatformName.ANDROID)
-public class Alert extends aquality.appium.mobile.template.screens.abstractions.Alert {
+public class AndroidAlert extends Alert {
 
-    public Alert() {
+    public AndroidAlert() {
         super(id("android:id/alertTitle"));
     }
 

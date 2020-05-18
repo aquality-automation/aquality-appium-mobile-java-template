@@ -1,7 +1,7 @@
 package aquality.appium.mobile.template.cucumber.stepdefinitions;
 
 import aquality.appium.mobile.screens.screenfactory.IScreenFactory;
-import aquality.appium.mobile.template.screens.abstractions.ChooseViewScreen;
+import aquality.appium.mobile.template.screens.chooseview.ChooseViewScreen;
 import io.cucumber.java.en.Given;
 
 import javax.inject.Inject;

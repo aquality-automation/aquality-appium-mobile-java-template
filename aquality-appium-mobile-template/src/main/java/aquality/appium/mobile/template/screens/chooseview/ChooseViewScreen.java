@@ -1,4 +1,4 @@
-package aquality.appium.mobile.template.screens.abstractions;
+package aquality.appium.mobile.template.screens.chooseview;
 
 import aquality.appium.mobile.screens.Screen;
 import org.openqa.selenium.By;

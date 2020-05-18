@@ -1,4 +1,4 @@
-package aquality.appium.mobile.template.screens.abstractions;
+package aquality.appium.mobile.template.screens;
 
 import aquality.appium.mobile.elements.interfaces.IButton;
 import aquality.appium.mobile.elements.interfaces.ILabel;

@@ -1,4 +1,4 @@
-package aquality.appium.mobile.template.screens.ios;
+package aquality.appium.mobile.template.screens.chooseview;
 
 import aquality.appium.mobile.application.PlatformName;
 import aquality.appium.mobile.screens.screenfactory.ScreenType;
@@ -6,9 +6,9 @@ import aquality.appium.mobile.screens.screenfactory.ScreenType;
 import static io.appium.java_client.MobileBy.iOSNsPredicateString;
 
 @ScreenType(platform = PlatformName.IOS)
-public class ChooseViewScreen extends aquality.appium.mobile.template.screens.abstractions.ChooseViewScreen {
+public class IOSChooseViewScreen extends ChooseViewScreen {
 
-    public ChooseViewScreen() {
+    public IOSChooseViewScreen() {
         super(iOSNsPredicateString("name == 'Choose An Awesome View'"));
     }
 }

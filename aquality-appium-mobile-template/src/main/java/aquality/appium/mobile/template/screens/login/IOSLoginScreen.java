@@ -1,4 +1,4 @@
-package aquality.appium.mobile.template.screens.ios;
+package aquality.appium.mobile.template.screens.login;
 
 import aquality.appium.mobile.application.PlatformName;
 import aquality.appium.mobile.screens.screenfactory.ScreenType;
@@ -7,9 +7,9 @@ import org.openqa.selenium.By;
 import static io.appium.java_client.MobileBy.*;
 
 @ScreenType(platform = PlatformName.IOS)
-public class LoginScreen extends aquality.appium.mobile.template.screens.abstractions.LoginScreen {
+public class IOSLoginScreen extends LoginScreen {
 
-    public LoginScreen() {
+    public IOSLoginScreen() {
         super(AccessibilityId("Login"));
     }
 

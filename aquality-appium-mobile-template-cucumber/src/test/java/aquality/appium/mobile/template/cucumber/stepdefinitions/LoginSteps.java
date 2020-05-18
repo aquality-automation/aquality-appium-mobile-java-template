@@ -2,7 +2,7 @@ package aquality.appium.mobile.template.cucumber.stepdefinitions;
 
 import aquality.appium.mobile.screens.screenfactory.IScreenFactory;
 import aquality.appium.mobile.template.models.LoginModel;
-import aquality.appium.mobile.template.screens.abstractions.LoginScreen;
+import aquality.appium.mobile.template.screens.login.LoginScreen;
 import io.cucumber.java.Transpose;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;

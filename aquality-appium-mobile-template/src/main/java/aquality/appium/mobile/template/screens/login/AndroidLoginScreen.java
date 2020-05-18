@@ -1,4 +1,4 @@
-package aquality.appium.mobile.template.screens.android;
+package aquality.appium.mobile.template.screens.login;
 
 import aquality.appium.mobile.application.PlatformName;
 import aquality.appium.mobile.screens.screenfactory.ScreenType;
@@ -8,9 +8,9 @@ import static io.appium.java_client.MobileBy.AccessibilityId;
 import static org.openqa.selenium.By.xpath;
 
 @ScreenType(platform = PlatformName.ANDROID)
-public class LoginScreen extends aquality.appium.mobile.template.screens.abstractions.LoginScreen {
+public class AndroidLoginScreen extends LoginScreen {
 
-    public LoginScreen() {
+    public AndroidLoginScreen() {
         super(xpath("//android.widget.TextView[@text='Login']"));
     }
 

@@ -1,7 +1,7 @@
 package aquality.appium.mobile.template.cucumber.stepdefinitions;
 
 import aquality.appium.mobile.screens.screenfactory.IScreenFactory;
-import aquality.appium.mobile.template.screens.abstractions.Alert;
+import aquality.appium.mobile.template.screens.Alert;
 import io.cucumber.java.en.Then;
 
 import javax.inject.Inject;
