@@ -51,7 +51,7 @@ jobs:
         ANDROID_SDK_ID: system-images;android-28;google_apis_playstore;x86
       IOS:
         PLATFORM_NAME: ios
-        IOS_SIM_ID: iPhone-11, 13.4
+        IOS_SIM_ID: iPhone-11, 13.5
 
   steps:
   - task: CmdLine@2
