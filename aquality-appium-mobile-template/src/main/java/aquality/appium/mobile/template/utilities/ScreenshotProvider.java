@@ -18,7 +18,7 @@ public class ScreenshotProvider implements IScreenshotProvider {
                 .takeScreenshot(AqualityServices.getApplication().getDriver());
 
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-            ImageIO.write(fpScreenshot.getImage(), "jpg", baos);
+            ImageIO.write(fpScreenshot.getImage(), "png", baos);
             baos.flush();
             return baos.toByteArray();
         } catch (IOException ioe) {
