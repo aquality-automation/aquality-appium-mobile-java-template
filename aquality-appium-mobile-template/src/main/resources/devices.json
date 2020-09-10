@@ -2,7 +2,7 @@
   "iOS_Simulator": {
     "capabilities": {
       "deviceName": "iPhone 11",
-      "platformVersion": "13.5"
+      "platformVersion": "13.7"
     }
   },
   "Android_Emulator": {
