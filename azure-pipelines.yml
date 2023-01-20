@@ -51,7 +51,7 @@ jobs:
         ANDROID_SDK_ID: system-images;android-28;google_apis_playstore;x86
       IOS:
         PLATFORM_NAME: ios
-        IOS_SIM_ID: iPhone-11, 13.5
+        IOS_SIM_ID: iPhone-11, 13.7
 
   steps:
   - task: CmdLine@2
@@ -68,7 +68,7 @@ jobs:
         echo "PATH: ${PATH}"
 
         echo "Installing Appium"
-        npm install -g appium@v1.17.0
+        npm install -g appium@next
         ln -fs /usr/local/lib/node_modules/appium/build/lib/main.js /usr/local/bin/appium
         chmod +x /usr/local/bin/appium
         export PATH=$PATH:/usr/local/bin/appium
@@ -77,7 +77,7 @@ jobs:
 
         echo "Installing and Running Appium doctor"
         npm install -g request@2.34.0
-        npm install -g appium-doctor@1.15.1
+        npm install @appium/doctor -g
         ln -fs /usr/local/lib/node_modules/appium-doctor/appium-doctor.js /usr/local/bin/appium-doctor
         chmod +x /usr/local/bin/appium-doctor
         export PATH=$PATH:/usr/local/bin/appium-doctor
@@ -93,7 +93,7 @@ jobs:
         echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n "$(ANDROID_EMU_NAME)" -k "$(ANDROID_SDK_ID)" -f
         $ANDROID_HOME/emulator/emulator -list-avds
 
-        nohup $ANDROID_HOME/emulator/emulator -avd "$(ANDROID_EMU_NAME)" -no-snapshot > /dev/null 2>&1 &
+        nohup $ANDROID_HOME/emulator/emulator -avd "$(ANDROID_EMU_NAME)" -gpu swiftshader_indirect -noaudio -no-boot-anim -no-snapshot > /dev/null 2>&1 &
         $ANDROID_HOME/platform-tools/adb wait-for-device
         while [[ $? -ne 0 ]]; do sleep 1; $ANDROID_HOME/platform-tools/adb shell pm list packages; done;
         $ANDROID_HOME/platform-tools/adb devices
@@ -114,7 +114,7 @@ jobs:
     displayName: 'Start Appium server'
     inputs:
       script: |
-        appium --allow-insecure chromedriver_autodownload &
+        appium --allow-insecure chromedriver_autodownload --base-path /wd/hub &
         echo "Appium server started"
     condition: succeeded()
 

@@ -3,7 +3,7 @@ package aquality.appium.mobile.template.screens.chooseview;
 import aquality.appium.mobile.screens.Screen;
 import org.openqa.selenium.By;
 
-import static io.appium.java_client.MobileBy.AccessibilityId;
+import static io.appium.java_client.AppiumBy.accessibilityId;
 import static java.lang.String.format;
 
 public abstract class ChooseViewScreen extends Screen {
@@ -13,6 +13,6 @@ public abstract class ChooseViewScreen extends Screen {
     }
 
     public void openView(final String viewName) {
-        getElementFactory().getLabel(AccessibilityId(viewName), format("Choose %s view", viewName)).click();
+        getElementFactory().getLabel(accessibilityId(viewName), format("Choose %s view", viewName)).click();
     }
 }

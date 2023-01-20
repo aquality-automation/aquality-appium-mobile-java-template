@@ -4,7 +4,7 @@ import aquality.appium.mobile.application.PlatformName;
 import aquality.appium.mobile.screens.screenfactory.ScreenType;
 import org.openqa.selenium.By;
 
-import static io.appium.java_client.MobileBy.*;
+import static io.appium.java_client.AppiumBy.*;
 
 @ScreenType(platform = PlatformName.IOS)
 public class IOSAlert extends Alert {
@@ -20,6 +20,6 @@ public class IOSAlert extends Alert {
 
     @Override
     protected By getOkBtnLoc() {
-        return AccessibilityId("OK");
+        return accessibilityId("OK");
     }
 }
