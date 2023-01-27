@@ -26,7 +26,7 @@ jobs:
       SUBPROJECT_NAME: aquality-appium-mobile-template-cucumber
       ENVIRONMENT: ${{ github.event.inputs.environment == '' && 'stage' ||  github.event.inputs.environment }}
       GH_PAGES_URL: https://aquality-automation.github.io/aquality-appium-mobile-java-template
-      ANDROID_PROFILE: test
+      ANDROID_PROFILE: Nexus 6
       ANDROID_TARGET: google_apis
       ANDROID_API_LEVEL: 28
       ANDROID_ARCH: x86_64
