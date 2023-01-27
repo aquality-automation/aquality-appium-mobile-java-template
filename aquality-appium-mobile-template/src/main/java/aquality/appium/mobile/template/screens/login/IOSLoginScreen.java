@@ -4,13 +4,13 @@ import aquality.appium.mobile.application.PlatformName;
 import aquality.appium.mobile.screens.screenfactory.ScreenType;
 import org.openqa.selenium.By;
 
-import static io.appium.java_client.MobileBy.*;
+import static io.appium.java_client.AppiumBy.*;
 
 @ScreenType(platform = PlatformName.IOS)
 public class IOSLoginScreen extends LoginScreen {
 
     public IOSLoginScreen() {
-        super(AccessibilityId("Login"));
+        super(accessibilityId("Login"));
     }
 
     @Override
