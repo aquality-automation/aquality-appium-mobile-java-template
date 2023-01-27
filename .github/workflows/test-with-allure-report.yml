@@ -27,7 +27,7 @@ jobs:
       ENVIRONMENT: ${{ github.event.inputs.environment == '' && 'stage' ||  github.event.inputs.environment }}
       GH_PAGES_URL: https://aquality-automation.github.io/aquality-appium-mobile-java-template
       ANDROID_PROFILE: test
-      ANDROID_TARGET: google_apis_playstore
+      ANDROID_TARGET: google_apis
       ANDROID_API_LEVEL: 28
       ANDROID_ARCH: x86_64
       IOS_SIM_MODEL: iPhone 11
@@ -62,7 +62,7 @@ jobs:
 
       - name: Setup iOS simulator
         if: always()
-        uses: reactivecircus/android-emulator-runner@v1
+        uses: futureware-tech/simulator-action@v2
         with:
           model: ${{ env.IOS_SIM_MODEL }}
 
