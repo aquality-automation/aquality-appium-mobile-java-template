@@ -84,6 +84,7 @@ jobs:
   deploy-report:
     needs: build-and-test
     runs-on: ubuntu-latest
+    steps:
       - name: Get Allure history
         uses: actions/checkout@v2
         if: always()
