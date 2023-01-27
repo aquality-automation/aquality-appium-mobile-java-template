@@ -34,7 +34,7 @@ jobs:
 
     concurrency: test-${{ github.event.inputs.environment == '' && 'stage' || github.event.inputs.environment }}
     name: Run tests and generate Allure Report
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
 
@@ -61,6 +61,7 @@ jobs:
           script: mvn test -DisRemote=true -DplatformName=android
 
       - name: Setup iOS simulator
+        if: always()
         uses: reactivecircus/android-emulator-runner@v1
         with:
           model: ${{ env.IOS_SIM_MODEL }}
