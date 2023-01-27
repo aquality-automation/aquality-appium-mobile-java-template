@@ -35,6 +35,8 @@ jobs:
     concurrency: test-${{ github.event.inputs.environment == '' && 'stage' || github.event.inputs.environment }}
     name: Run tests and generate Allure Report
     runs-on: macos-latest
+    outputs:
+      maven_tests_android: ${{ steps.maven_tests_android.outputs.test }}
     steps:
       - uses: actions/checkout@v2
 
@@ -56,8 +58,8 @@ jobs:
         with:
           api-level: ${{ env.ANDROID_API_LEVEL }}
           target: ${{ env.ANDROID_TARGET }}
-          arch: ${{ env.ANDROID_PROFILE }}
-          profile: ${{ env.ANDROID_ARCH }}
+          arch: ${{ env.ANDROID_ARCH }}
+          profile: ${{ env.ANDROID_PROFILE }}
           script: mvn test -DisRemote=true -DplatformName=android
 
       - name: Setup iOS simulator
@@ -67,9 +69,21 @@ jobs:
           model: ${{ env.IOS_SIM_MODEL }}
 
       - name: Test against iOS
+        if: always()
         id: maven_tests_ios
         run: mvn test -DisRemote=true -DplatformName=ios
 
+      - name: Deploy results to Github Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v2
+        env:
+          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: ${{ env.SUBPROJECT_NAME }}/target/allure-results
+
+  deploy-report:
+    needs: build-and-test
+    runs-on: ubuntu-latest
       - name: Get Allure history
         uses: actions/checkout@v2
         if: always()
@@ -103,6 +117,6 @@ jobs:
         with:
           authToken: ${{secrets.GITHUB_TOKEN}}
           context: 'Test report'
-          state: ${{ steps.maven_tests_android.outcome }}
+          state: ${{ needs.build-and-test.outputs.maven_tests_android }}
           sha: ${{github.event.pull_request.head.sha || github.sha}}
           target_url: ${{ env.GH_PAGES_URL }}/${{github.run_number}}/
