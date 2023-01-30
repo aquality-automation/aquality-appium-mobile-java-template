@@ -13,7 +13,8 @@
         "automationName": "UiAutomator2",
         "appPackage": "io.cloudgrey.the_app",
         "appActivity": "io.cloudgrey.the_app.MainActivity",
-        "adbExecTimeout": 10000
+        "adbExecTimeout": 30000,
+        "androidInstallTimeout": 30000
       }
     },
     "ios": {
@@ -22,7 +23,13 @@
       "capabilities": {
         "platformName": "iOS",
         "automationName": "XCUITest",
-        "bundleId": "io.cloudgrey.the-app"
+        "bundleId": "io.cloudgrey.the-app",
+        "wdaLaunchTimeout": 90000,
+        "wdaStartupRetries": 4,
+        "wdaStartupRetryInterval": 20000,
+        "noReset": true,
+        "isHeadless": true,
+        "simulatorStartupTimeout": 300000
       }
     }
   },
@@ -37,7 +44,7 @@
     "timeoutImplicit" : 0,
     "timeoutCondition" : 15,
     "timeoutPollingInterval": 300,
-    "timeoutCommand":120
+    "timeoutCommand":180
   },
   "retry": {
     "number": 2,

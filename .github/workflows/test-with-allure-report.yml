@@ -30,7 +30,7 @@ jobs:
       ANDROID_TARGET: google_apis
       ANDROID_API_LEVEL: 28
       ANDROID_ARCH: x86_64
-      IOS_SIM_MODEL: iPhone 11
+      IOS_SIM_MODEL: iPhone 8
 
     concurrency: test-${{ github.event.inputs.environment == '' && 'stage' || github.event.inputs.environment }}
     name: Run tests and generate Allure Report
@@ -73,13 +73,12 @@ jobs:
         id: maven_tests_ios
         run: mvn test -DisRemote=true -DplatformName=ios
 
-      - name: Deploy results to Github Pages
+      - name: Upload results as artifacts
         if: always()
-        uses: peaceiris/actions-gh-pages@v2
-        env:
-          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: ${{ env.SUBPROJECT_NAME }}/target/allure-results
+        uses: actions/upload-artifact@master
+        with:
+          name: allure-results
+          path: ${{ env.SUBPROJECT_NAME }}/target/allure-results
 
   deploy-report:
     needs: build-and-test
@@ -93,12 +92,19 @@ jobs:
           ref: gh-pages
           path: gh-pages
 
+      - name: Download results artifacts
+        if: always()
+        uses: actions/download-artifact@master
+        with:
+          name: allure-results
+          path: target/allure-results
+
       - name: Generate Allure Report
         uses: simple-elf/allure-report-action@master
         if: always()
         id: allure-report
         with:
-          allure_results: ${{ env.SUBPROJECT_NAME }}/target/allure-results
+          allure_results: target/allure-results
           gh_pages: gh-pages
           allure_report: allure-report
           allure_history: allure-history

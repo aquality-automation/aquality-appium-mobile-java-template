@@ -1,7 +1,7 @@
 {
   "iOS_Simulator": {
     "capabilities": {
-      "deviceName": "iPhone 11",
+      "deviceName": "iPhone 8",
       "platformVersion": "16.2"
     }
   },
