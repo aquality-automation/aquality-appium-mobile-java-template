@@ -7,4 +7,4 @@ appium driver install uiautomator2
 sudo /usr/bin/xcode-select -switch /Applications/Xcode.app/Contents/Developer
 xcrun --sdk iphonesimulator --show-sdk-version
 appium driver list
-appium --allow-insecure chromedriver_autodownload --base-path /wd/hub --backend-retries 5 &
+appium --allow-insecure chromedriver_autodownload --base-path /wd/hub &
