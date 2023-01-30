@@ -13,8 +13,8 @@
         "automationName": "UiAutomator2",
         "appPackage": "io.cloudgrey.the_app",
         "appActivity": "io.cloudgrey.the_app.MainActivity",
-        "adbExecTimeout": 30000,
-        "androidInstallTimeout": 30000
+        "adbExecTimeout": 60000,
+        "androidInstallTimeout": 120000
       }
     },
     "ios": {
