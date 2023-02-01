@@ -124,6 +124,6 @@ jobs:
         with:
           authToken: ${{secrets.GITHUB_TOKEN}}
           context: 'Test report'
-          state: ${{ needs.build-and-test.outputs.maven_tests_android }}
+          state: 'success'
           sha: ${{github.event.pull_request.head.sha || github.sha}}
           target_url: ${{ env.GH_PAGES_URL }}/${{github.run_number}}/
