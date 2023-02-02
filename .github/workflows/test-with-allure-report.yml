@@ -25,7 +25,6 @@ jobs:
     env:
       SUBPROJECT_NAME: aquality-appium-mobile-template-cucumber
       ENVIRONMENT: ${{ github.event.inputs.environment == '' && 'stage' ||  github.event.inputs.environment }}
-      GH_PAGES_URL: https://aquality-automation.github.io/aquality-appium-mobile-java-template
       ANDROID_PROFILE: Nexus 6
       ANDROID_TARGET: google_apis
       ANDROID_API_LEVEL: 28
@@ -83,6 +82,8 @@ jobs:
   deploy-report:
     needs: build-and-test
     runs-on: ubuntu-latest
+    env:
+      GH_PAGES_URL: https://aquality-automation.github.io/aquality-appium-mobile-java-template
     steps:
       - name: Get Allure history
         uses: actions/checkout@v2
