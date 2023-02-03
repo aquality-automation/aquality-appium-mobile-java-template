@@ -14,7 +14,8 @@
         "appPackage": "io.cloudgrey.the_app",
         "appActivity": "io.cloudgrey.the_app.MainActivity",
         "adbExecTimeout": 60000,
-        "androidInstallTimeout": 120000
+        "androidInstallTimeout": 120000,
+        "uiautomator2ServerInstallTimeout": 120000
       }
     },
     "ios": {
