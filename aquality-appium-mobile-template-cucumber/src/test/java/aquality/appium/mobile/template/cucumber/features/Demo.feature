@@ -1,4 +1,6 @@
 Feature: Demo
+  Background:
+    Given Allure test name has been updated by the platform parameter
 
   @demo
   Scenario: I try to login with invalid credentials
