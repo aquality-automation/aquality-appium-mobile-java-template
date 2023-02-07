@@ -34,7 +34,7 @@ jobs:
     name: Run tests against Android
     runs-on: macos-latest
     outputs:
-      maven_tests: ${{ steps.maven_tests.outputs.test }}
+      maven_tests: ${{ steps.maven_tests.outcome }}
     steps:
       - uses: actions/checkout@v2
 
@@ -58,9 +58,7 @@ jobs:
           target: ${{ env.ANDROID_TARGET }}
           arch: ${{ env.ANDROID_ARCH }}
           profile: ${{ env.ANDROID_PROFILE }}
-          script: |
-            mvn test -DisRemote=true -DplatformName=android &
-            echo "test=success" >> $GITHUB_OUTPUT
+          script: mvn test -DisRemote=true -DplatformName=android
 
       - name: Upload results as artifacts
         if: always()
@@ -79,7 +77,7 @@ jobs:
     name: Run tests against iOS
     runs-on: macos-latest
     outputs:
-      maven_tests: ${{ steps.maven_tests.outputs.test }}
+      maven_tests: ${{ steps.maven_tests.outcome }}
     steps:
       - uses: actions/checkout@v2
 
@@ -104,9 +102,7 @@ jobs:
       - name: Test against iOS
         if: always()
         id: maven_tests
-        run: |
-          mvn test -DisRemote=true -DplatformName=ios &
-          echo "test=success" >> $GITHUB_OUTPUT
+        run: mvn test -DisRemote=true -DplatformName=ios
 
       - name: Upload results as artifacts
         if: always()
