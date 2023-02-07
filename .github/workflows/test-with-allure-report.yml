@@ -59,7 +59,7 @@ jobs:
           arch: ${{ env.ANDROID_ARCH }}
           profile: ${{ env.ANDROID_PROFILE }}
           script: |
-            mvn test -DisRemote=true -DplatformName=android
+            mvn test -DisRemote=true -DplatformName=android &
             echo "test=success" >> $GITHUB_OUTPUT
 
       - name: Upload results as artifacts
@@ -105,7 +105,7 @@ jobs:
         if: always()
         id: maven_tests
         run: |
-          mvn test -DisRemote=true -DplatformName=ios
+          mvn test -DisRemote=true -DplatformName=ios &
           echo "test=success" >> $GITHUB_OUTPUT
 
       - name: Upload results as artifacts
