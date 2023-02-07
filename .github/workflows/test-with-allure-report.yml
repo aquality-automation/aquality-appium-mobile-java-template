@@ -21,7 +21,7 @@ on:
           - prod
           - stage
 jobs:
-  build-and-test:
+  build-and-test-android:
     env:
       SUBPROJECT_NAME: aquality-appium-mobile-template-cucumber
       ENVIRONMENT: ${{ github.event.inputs.environment == '' && 'stage' ||  github.event.inputs.environment }}
@@ -29,13 +29,12 @@ jobs:
       ANDROID_TARGET: google_apis
       ANDROID_API_LEVEL: 28
       ANDROID_ARCH: x86_64
-      IOS_SIM_MODEL: iPhone 8
 
-    concurrency: test-${{ github.event.inputs.environment == '' && 'stage' || github.event.inputs.environment }}
+    concurrency: test-android-${{ github.event.inputs.environment == '' && 'stage' || github.event.inputs.environment }}
     name: Run tests and generate Allure Report
     runs-on: macos-latest
     outputs:
-      maven_tests_android: ${{ steps.maven_tests_android.outputs.test }}
+      maven_tests: ${{ steps.maven_tests.outputs.test }}
     steps:
       - uses: actions/checkout@v2
 
@@ -48,18 +47,53 @@ jobs:
 
       - name: Install and Run Appium Server
         run: |
-          chmod +x ./scripts/RunAppiumServer.sh
-          ./scripts/RunAppiumServer.sh
+          chmod +x ./scripts/PrepareAppiumServerForAndroid.sh
+          ./scripts/PrepareAppiumServerForAndroid.sh
 
       - name: Test against Android
-        id: maven_tests_android
+        id: maven_tests
         uses: reactivecircus/android-emulator-runner@v1
         with:
           api-level: ${{ env.ANDROID_API_LEVEL }}
           target: ${{ env.ANDROID_TARGET }}
           arch: ${{ env.ANDROID_ARCH }}
           profile: ${{ env.ANDROID_PROFILE }}
-          script: mvn test -DisRemote=true -DplatformName=android
+          script: |
+          mvn test -DisRemote=true -DplatformName=android
+          echo "test=success" >> $GITHUB_OUTPUT
+
+      - name: Upload results as artifacts
+        if: always()
+        uses: actions/upload-artifact@master
+        with:
+          name: allure-results-android
+          path: ${{ env.SUBPROJECT_NAME }}/target/allure-results
+
+  build-and-test-ios:
+    env:
+      SUBPROJECT_NAME: aquality-appium-mobile-template-cucumber
+      ENVIRONMENT: ${{ github.event.inputs.environment == '' && 'stage' ||  github.event.inputs.environment }}
+      IOS_SIM_MODEL: iPhone 8
+
+    concurrency: test-ios-${{ github.event.inputs.environment == '' && 'stage' || github.event.inputs.environment }}
+    name: Run tests and generate Allure Report
+    runs-on: macos-latest
+    outputs:
+      maven_tests: ${{ steps.maven_tests.outputs.test }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v3
+        with:
+          java-version: '8'
+          distribution: 'adopt'
+          cache: maven
+
+      - name: Install and Run Appium Server
+        run: |
+          chmod +x ./scripts/PrepareAppiumServerForIos.sh
+          ./scripts/PrepareAppiumServerForIos.sh
 
       - name: Setup iOS simulator
         if: always()
@@ -69,19 +103,21 @@ jobs:
 
       - name: Test against iOS
         if: always()
-        id: maven_tests_ios
-        run: mvn test -DisRemote=true -DplatformName=ios
+        id: maven_tests
+        run: |
+          mvn test -DisRemote=true -DplatformName=ios
+          echo "test=success" >> $GITHUB_OUTPUT
 
       - name: Upload results as artifacts
         if: always()
         uses: actions/upload-artifact@master
         with:
-          name: allure-results
+          name: allure-results-ios
           path: ${{ env.SUBPROJECT_NAME }}/target/allure-results
 
   deploy-report:
     if: always()
-    needs: build-and-test
+    needs: [build-and-test-android, build-and-test-ios]
     runs-on: ubuntu-latest
     env:
       GH_PAGES_URL: https://aquality-automation.github.io/aquality-appium-mobile-java-template
@@ -94,11 +130,18 @@ jobs:
           ref: gh-pages
           path: gh-pages
 
-      - name: Download results artifacts
+      - name: Download Android results artifacts
         if: always()
         uses: actions/download-artifact@master
         with:
-          name: allure-results
+          name: allure-results-android
+          path: target/allure-results
+
+      - name: Download iOS results artifacts
+        if: always()
+        uses: actions/download-artifact@master
+        with:
+          name: allure-results-ios
           path: target/allure-results
 
       - name: Generate Allure Report
@@ -126,6 +169,6 @@ jobs:
         with:
           authToken: ${{secrets.GITHUB_TOKEN}}
           context: 'Test report'
-          state: 'success'
+          state: ${{ needs.build-and-test-android.outputs.maven_tests == 'success' && needs.build-and-test-ios.outputs.maven_tests == 'success' && 'success' || 'failure' }}
           sha: ${{github.event.pull_request.head.sha || github.sha}}
           target_url: ${{ env.GH_PAGES_URL }}/${{github.run_number}}/
