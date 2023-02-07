@@ -31,7 +31,7 @@ jobs:
       ANDROID_ARCH: x86_64
 
     concurrency: test-android-${{ github.event.inputs.environment == '' && 'stage' || github.event.inputs.environment }}
-    name: Run tests and generate Allure Report
+    name: Run tests against Android
     runs-on: macos-latest
     outputs:
       maven_tests: ${{ steps.maven_tests.outputs.test }}
@@ -76,7 +76,7 @@ jobs:
       IOS_SIM_MODEL: iPhone 8
 
     concurrency: test-ios-${{ github.event.inputs.environment == '' && 'stage' || github.event.inputs.environment }}
-    name: Run tests and generate Allure Report
+    name: Run tests against iOS
     runs-on: macos-latest
     outputs:
       maven_tests: ${{ steps.maven_tests.outputs.test }}
@@ -117,6 +117,7 @@ jobs:
 
   deploy-report:
     if: always()
+    name: Generate and deploy Allure Report
     needs: [build-and-test-android, build-and-test-ios]
     runs-on: ubuntu-latest
     env:
