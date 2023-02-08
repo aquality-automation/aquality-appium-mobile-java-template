@@ -52,7 +52,7 @@ jobs:
 
       - name: Test against Android
         id: maven_tests
-        uses: reactivecircus/android-emulator-runner@v1
+        uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ env.ANDROID_API_LEVEL }}
           target: ${{ env.ANDROID_TARGET }}
