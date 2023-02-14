@@ -1,5 +1,6 @@
 [![Build Status](https://dev.azure.com/aquality-automation/aquality-automation/_apis/build/status/aquality-automation.aquality-appium-mobile-java-template?branchName=master)](https://dev.azure.com/aquality-automation/aquality-automation/_build/latest?definitionId=11&branchName=master)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=aquality-automation_aquality-appium-mobile-java-template&metric=alert_status)](https://sonarcloud.io/dashboard?id=aquality-automation_aquality-appium-mobile-java-template)
+[![Allure report](https://github.com/aquality-automation/aquality-appium-mobile-java-template/actions/workflows/test-with-allure-report.yml/badge.svg)](https://aquality-automation.github.io/aquality-appium-mobile-java-template/)
 
 # Aquality Appium Mobile Template Project
 Template for [aquality-appium-mobile-java](https://github.com/aquality-automation/aquality-appium-mobile-java) library.
