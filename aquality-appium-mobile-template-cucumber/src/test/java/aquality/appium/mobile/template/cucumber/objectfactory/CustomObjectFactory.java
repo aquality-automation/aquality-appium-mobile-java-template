@@ -13,8 +13,10 @@ public class CustomObjectFactory implements ObjectFactory {
     private final Injector injector;
 
     public CustomObjectFactory() {
+        CustomMobileModule mobileModule = new CustomMobileModule(AqualityServices::getApplication);
+        AqualityServices.initInjector(mobileModule);
         this.injector = Guice.createInjector(Stage.PRODUCTION, CucumberModules.createScenarioModule(),
-                new ServiceModule(), new CustomMobileModule(AqualityServices::getApplication));
+                new ServiceModule(), mobileModule);
     }
 
     @Override
