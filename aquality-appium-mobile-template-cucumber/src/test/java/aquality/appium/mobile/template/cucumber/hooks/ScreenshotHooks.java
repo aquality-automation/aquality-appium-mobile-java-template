@@ -1,5 +1,6 @@
 package aquality.appium.mobile.template.cucumber.hooks;
 
+import aquality.appium.mobile.application.AqualityServices;
 import aquality.appium.mobile.template.utilities.IScreenshotProvider;
 import io.cucumber.java.After;
 import io.cucumber.java.Scenario;
@@ -17,6 +18,8 @@ public class ScreenshotHooks {
 
     @After(order = 1)
     public void takeScreenshot(Scenario scenario) {
-        scenario.attach(screenshotProvider.takeScreenshot(), "image/png", "screenshot.png");
+        if (AqualityServices.isApplicationStarted()) {
+            scenario.attach(screenshotProvider.takeScreenshot(), "image/png", "screenshot.png");
+        }
     }
 }
