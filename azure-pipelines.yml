@@ -116,8 +116,11 @@ jobs:
         npm install -g ios-sim@9.0.0
         ios-sim showdevicetypes
         ios-sim start --devicetypeid "$(IOS_SIM_ID)"
+
         echo "Wait for simulator to be ready"
-        sleep 240
+
+        SIM_UID="$(instruments -s devices | grep -m 1 '$(IOS_SIM_ID)' | awk -F'[][]' '{print $2}')"
+        xcrun simctl bootstatus $SIM_UID
     condition: and(succeeded(), eq(variables['PLATFORM_NAME'], 'ios'))
 
   - task: CmdLine@2
