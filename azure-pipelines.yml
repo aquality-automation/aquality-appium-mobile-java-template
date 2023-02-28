@@ -52,6 +52,7 @@ jobs:
       IOS:
         PLATFORM_NAME: ios
         IOS_SIM_ID: iPhone-8, 16.2
+        IOS_SIM_NAME: iPhone 8
 
   steps:
   - task: CmdLine@2
@@ -120,8 +121,7 @@ jobs:
         echo "Simulator started"
 
         echo "Wait for simulator to be ready"
-        xcrun simctl list devices
-        SIM_UID="$(xcrun simctl list devices | grep -m 1 '$(IOS_SIM_ID)' | grep -E -o -i "([0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12})"
+        SIM_UID="$(xcrun simctl list devices | grep -m 1 '$(IOS_SIM_NAME)' | grep -E -o -i "([0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12})"
         xcrun simctl bootstatus $SIM_UID
     condition: and(succeeded(), eq(variables['PLATFORM_NAME'], 'ios'))
 
