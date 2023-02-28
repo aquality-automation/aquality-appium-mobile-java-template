@@ -121,7 +121,7 @@ jobs:
 
         echo "Wait for simulator to be ready"
         xctrace list devices
-        SIM_UID="$(xctrace list devices | grep -m 1 '$(IOS_SIM_ID)' | awk '{print substr($0,length($0)-36,36)}'"
+        SIM_UID="$(xctrace list devices | grep -m 1 '$(IOS_SIM_ID)' | awk -F'()()' '{print $2}'"
         xcrun simctl bootstatus $SIM_UID
     condition: and(succeeded(), eq(variables['PLATFORM_NAME'], 'ios'))
 
