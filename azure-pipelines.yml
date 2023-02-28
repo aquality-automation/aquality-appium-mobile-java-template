@@ -113,13 +113,15 @@ jobs:
         appium driver list
         echo "XCUITest driver installed"
 
+        echo "Starting ${IOS_SIM_ID} simulator"
         npm install -g ios-sim@9.0.0
         ios-sim showdevicetypes
         ios-sim start --devicetypeid "$(IOS_SIM_ID)"
+        echo "Simulator started"
 
         echo "Wait for simulator to be ready"
-
-        SIM_UID="$(xctrace list devices | grep -m 1 '$(IOS_SIM_ID)' | awk -F'[][]' '{print $2}')"
+        xctrace list devices
+        SIM_UID="$(xctrace list devices | grep -m 1 '$(IOS_SIM_ID)' | awk '{print substr($0,length($0)-36,36)}'"
         xcrun simctl bootstatus $SIM_UID
     condition: and(succeeded(), eq(variables['PLATFORM_NAME'], 'ios'))
 
