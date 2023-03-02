@@ -52,6 +52,7 @@ jobs:
       IOS:
         PLATFORM_NAME: ios
         IOS_SIM_ID: iPhone-8, 16.2
+        IOS_SIM_NAME: iPhone 8
 
   steps:
   - task: CmdLine@2
@@ -113,11 +114,15 @@ jobs:
         appium driver list
         echo "XCUITest driver installed"
 
+        echo "Starting ${IOS_SIM_ID} simulator"
         npm install -g ios-sim@9.0.0
         ios-sim showdevicetypes
         ios-sim start --devicetypeid "$(IOS_SIM_ID)"
+        echo "Simulator started"
+
         echo "Wait for simulator to be ready"
-        sleep 240
+        SIM_UID="$(xcrun simctl list devices | grep -m 1 "$IOS_SIM_NAME" | grep -E -o -i "([0-9A-F]{8}-([0-9A-F]{4}-){3}[0-9A-F]{12})")"
+        xcrun simctl bootstatus $SIM_UID
     condition: and(succeeded(), eq(variables['PLATFORM_NAME'], 'ios'))
 
   - task: CmdLine@2
