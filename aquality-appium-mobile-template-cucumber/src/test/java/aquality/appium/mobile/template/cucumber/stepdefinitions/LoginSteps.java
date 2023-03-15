@@ -31,4 +31,14 @@ public class LoginSteps {
     public void loginScreenIsOpened() {
         assertTrue(loginScreen.state().waitForDisplayed(), "Login Screen is opened");
     }
+
+    @When("I save Login Screen dump")
+    public void saveLoginScreenDump() {
+        loginScreen.dump().save();
+    }
+
+    @Then("Login Screen dump is different")
+    public void loginScreenDumpIsDifferent() {
+        assertTrue(loginScreen.dump().compare() > 0, "The form dump should differ");
+    }
 }
