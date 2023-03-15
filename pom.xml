@@ -29,7 +29,7 @@
     <dependencies>
         <dependency>
             <groupId>com.github.aquality-automation</groupId>
-            <artifactId>aquality-appium-mobile</artifactId>
+            <artifactId>aquality-appium-mobile</artifactId>            
             <version>4.0.0</version>
         </dependency>
         <dependency>
