@@ -1,0 +1,7 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Tue Feb 27 13:34:10 GMT 2024","Tue Feb 27 13:34:10 GMT 2024","10","","Demo","","ScenarioContext demo","","ScenarioContext demo",""
+"passed","Tue Feb 27 13:31:31 GMT 2024","Tue Feb 27 13:34:05 GMT 2024","153426","","Demo","","I try to login with invalid credentials","","I try to login with invalid credentials",""
+"passed","Tue Feb 27 13:34:10 GMT 2024","Tue Feb 27 13:34:10 GMT 2024","12","","Demo","","ScenarioContext demo","","ScenarioContext demo",""
+"passed","Tue Feb 27 13:43:20 GMT 2024","Tue Feb 27 13:43:20 GMT 2024","24","","Demo","","ScenarioContext demo","","ScenarioContext demo",""
+"passed","Tue Feb 27 13:43:20 GMT 2024","Tue Feb 27 13:43:20 GMT 2024","12","","Demo","","ScenarioContext demo","","ScenarioContext demo",""
+"broken","Tue Feb 27 13:38:30 GMT 2024","Tue Feb 27 13:43:15 GMT 2024","284963","","Demo","","I try to login with invalid credentials","","I try to login with invalid credentials",""
