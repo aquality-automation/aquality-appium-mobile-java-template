@@ -1,4 +1,0 @@
-"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"passed","Thu Feb 02 22:16:19 GMT 2023","Thu Feb 02 22:16:19 GMT 2023","10","","Demo","","ScenarioContext demo","","ScenarioContext demo",""
-"passed","Thu Feb 02 22:06:49 GMT 2023","Thu Feb 02 22:16:19 GMT 2023","569240","","Demo","","I try to login with invalid credentials","","I try to login with invalid credentials: IOS",""
-"passed","Thu Feb 02 22:16:19 GMT 2023","Thu Feb 02 22:16:19 GMT 2023","3","","Demo","","ScenarioContext demo","","ScenarioContext demo",""
