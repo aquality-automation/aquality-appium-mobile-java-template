@@ -76,6 +76,8 @@ jobs:
 
   build-and-test-ios:
     env:
+      CUCUMBER_ALLURE_RESULTS: aquality-appium-mobile-template-cucumber/target/allure-results
+      TESTNG_ALLURE_RESULTS: aquality-appium-mobile-template-testng/target/allure-results
       SUBPROJECT_NAME: aquality-appium-mobile-template-cucumber
       ENVIRONMENT: ${{ github.event.inputs.environment == '' && 'stage' ||  github.event.inputs.environment }}
       IOS_SIM_MODEL: iPhone 8
