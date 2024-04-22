@@ -3,7 +3,6 @@ package aquality.appium.mobile.template.testng.tests;
 import aquality.appium.mobile.application.Application;
 import aquality.appium.mobile.application.AqualityServices;
 import aquality.appium.mobile.template.modules.CustomMobileModule;
-import aquality.appium.mobile.template.testng.steps.CommonSteps;
 import aquality.appium.mobile.template.testng.utilities.ModuleFactory;
 import aquality.appium.mobile.template.testng.utilities.TestNameListener;
 import aquality.appium.mobile.template.utilities.IScreenshotProvider;
@@ -21,8 +20,6 @@ import java.util.function.Consumer;
 @Guice(moduleFactory = ModuleFactory.class)
 @Listeners(TestNameListener.class)
 public class BaseTest {
-    @Inject
-    CommonSteps commonSteps;
     @Inject
     IScreenshotProvider screenshotProvider;
     @Inject

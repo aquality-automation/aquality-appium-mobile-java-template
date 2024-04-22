@@ -3,6 +3,7 @@ package aquality.appium.mobile.template.testng.tests;
 import aquality.appium.mobile.template.models.LoginModel;
 import aquality.appium.mobile.template.testng.constants.AlertMessages;
 import aquality.appium.mobile.template.testng.constants.ViewNames;
+import aquality.appium.mobile.template.testng.steps.AlertSteps;
 import aquality.appium.mobile.template.testng.steps.ChooseViewSteps;
 import aquality.appium.mobile.template.testng.steps.LoginSteps;
 import aquality.appium.mobile.template.testng.utilities.JsonDataProvider;
@@ -11,10 +12,10 @@ import org.testng.annotations.Test;
 import javax.inject.Inject;
 
 public class LoginTest extends BaseTest {
-
+    @Inject
+    AlertSteps alertSteps;
     @Inject
     LoginSteps loginSteps;
-
     @Inject
     ChooseViewSteps chooseViewSteps;
 
@@ -25,8 +26,8 @@ public class LoginTest extends BaseTest {
         loginSteps.checkLoginScreenIsOpened();
         loginSteps.saveLoginScreenDump();
         loginSteps.fillInLoginForm(loginModel);
-        commonSteps.checkAlertAppears(AlertMessages.INVALID_CREDENTIALS);
-        commonSteps.acceptAlert();
+        alertSteps.checkAlertAppears(AlertMessages.INVALID_CREDENTIALS);
+        alertSteps.acceptAlert();
         loginSteps.checkLoginScreenDumpIsDifferent();
     }
 }
