@@ -1,1 +1,1 @@
-[]
+[{"uid":"e102ed8b1ff88207","name":"ScenarioContext demo","time":{"start":1713822359659,"stop":1713822359678,"duration":19},"status":"passed","severity":"normal"},{"uid":"fd6a0fb3e12a89f1","name":"I try to login with invalid credentials","time":{"start":1713821873197,"stop":1713822354590,"duration":481393},"status":"broken","severity":"normal"},{"uid":"2aacf6b68a9261cd","name":"ScenarioContext demo","time":{"start":1713822359690,"stop":1713822359699,"duration":9},"status":"passed","severity":"normal"}]
