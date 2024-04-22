@@ -7,7 +7,7 @@
   "driverSettings": {
     "android": {
       "deviceKey": "Android_Emulator",
-      "applicationPath": "./src/test/resources/applications/TheApp-v1.10.0.apk",
+      "applicationPath": "../aquality-appium-mobile-template/src/main/resources/applications/TheApp-v1.10.0.apk",
       "capabilities": {
         "platformName": "Android",
         "automationName": "UiAutomator2",
@@ -20,7 +20,7 @@
     },
     "ios": {
       "deviceKey": "iOS_Simulator",
-      "applicationPath": "./src/test/resources/applications/TheApp-v1.10.0.app.zip",
+      "applicationPath": "../aquality-appium-mobile-template/src/main/resources/applications/TheApp-v1.10.0.app.zip",
       "capabilities": {
         "platformName": "iOS",
         "automationName": "XCUITest",

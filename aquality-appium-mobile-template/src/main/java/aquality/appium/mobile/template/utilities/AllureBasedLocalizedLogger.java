@@ -1,4 +1,4 @@
-package aquality.appium.mobile.template.cucumber.utilities;
+package aquality.appium.mobile.template.utilities;
 
 import aquality.selenium.core.configurations.ILoggerConfiguration;
 import aquality.selenium.core.localization.ILocalizationManager;

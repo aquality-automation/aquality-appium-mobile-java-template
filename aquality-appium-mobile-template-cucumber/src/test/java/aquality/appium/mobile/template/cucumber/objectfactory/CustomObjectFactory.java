@@ -1,6 +1,8 @@
 package aquality.appium.mobile.template.cucumber.objectfactory;
 
 import aquality.appium.mobile.application.AqualityServices;
+import aquality.appium.mobile.template.modules.CustomMobileModule;
+import aquality.appium.mobile.template.modules.ServiceModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Stage;
@@ -13,7 +15,7 @@ public class CustomObjectFactory implements ObjectFactory {
     private final Injector injector;
 
     public CustomObjectFactory() {
-        CustomMobileModule mobileModule = new CustomMobileModule(AqualityServices::getApplication);
+        CustomMobileModule mobileModule = new CustomMobileModule();
         AqualityServices.initInjector(mobileModule);
         this.injector = Guice.createInjector(Stage.PRODUCTION, CucumberModules.createScenarioModule(),
                 new ServiceModule(), mobileModule);

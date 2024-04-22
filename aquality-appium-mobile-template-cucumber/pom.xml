@@ -63,7 +63,7 @@
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-cucumber5-jvm</artifactId>
-            <version>2.13.3</version>
+            <version>${allure.version}</version>
         </dependency>
     </dependencies>
 </project>
