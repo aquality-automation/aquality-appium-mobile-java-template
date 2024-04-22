@@ -1,0 +1,8 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Mon Apr 22 22:03:38 GMT 2024","Mon Apr 22 22:03:38 GMT 2024","24","","Demo","","ScenarioContext demo","","ScenarioContext demo",""
+"passed","Mon Apr 22 22:03:16 GMT 2024","Mon Apr 22 22:03:17 GMT 2024","10","","Demo","","ScenarioContext demo","","ScenarioContext demo",""
+"passed","Mon Apr 22 21:45:57 GMT 2024","Mon Apr 22 22:03:37 GMT 2024","1060618","","Demo","","I try to login with invalid credentials","","I try to login with invalid credentials",""
+"broken","Mon Apr 22 22:03:56 GMT 2024","Mon Apr 22 22:04:43 GMT 2024","46826","Surefire suite","Surefire test","aquality.appium.mobile.template.testng.tests.LoginTest","aquality.appium.mobile.template.testng.tests.LoginTest","testLoginWithInvalidCredentials","Login with invalid credentials is impossible: IOS",""
+"passed","Mon Apr 22 22:03:17 GMT 2024","Mon Apr 22 22:03:17 GMT 2024","7","","Demo","","ScenarioContext demo","","ScenarioContext demo",""
+"passed","Mon Apr 22 21:56:33 GMT 2024","Mon Apr 22 22:03:11 GMT 2024","398296","","Demo","","I try to login with invalid credentials","","I try to login with invalid credentials",""
+"passed","Mon Apr 22 22:03:38 GMT 2024","Mon Apr 22 22:03:38 GMT 2024","17","","Demo","","ScenarioContext demo","","ScenarioContext demo",""
