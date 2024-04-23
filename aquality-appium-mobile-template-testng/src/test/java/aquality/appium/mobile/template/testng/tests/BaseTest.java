@@ -4,7 +4,6 @@ import aquality.appium.mobile.application.Application;
 import aquality.appium.mobile.application.AqualityServices;
 import aquality.appium.mobile.template.modules.CustomMobileModule;
 import aquality.appium.mobile.template.testng.utilities.ModuleFactory;
-import aquality.appium.mobile.template.testng.utilities.TestNameListener;
 import aquality.appium.mobile.template.utilities.IScreenshotProvider;
 import aquality.selenium.core.localization.ILocalizedLogger;
 import com.google.inject.Inject;
@@ -12,13 +11,15 @@ import io.qameta.allure.Allure;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.description.Description;
 import org.testng.ITestContext;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Guice;
 
 import java.io.ByteArrayInputStream;
 import java.util.function.Consumer;
 
 @Guice(moduleFactory = ModuleFactory.class)
-@Listeners(TestNameListener.class)
 public class BaseTest {
     @Inject
     IScreenshotProvider screenshotProvider;
@@ -26,6 +27,7 @@ public class BaseTest {
     ILocalizedLogger localizedLogger;
     @Inject
     CustomMobileModule customBrowserModule;
+
     private Application application;
 
     @BeforeTest
