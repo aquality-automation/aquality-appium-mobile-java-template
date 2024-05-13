@@ -1,8 +1,7 @@
 package aquality.appium.mobile.template.testng.tests;
 
-import aquality.appium.mobile.application.Application;
 import aquality.appium.mobile.application.AqualityServices;
-import aquality.appium.mobile.template.configuration.Configuration;
+import aquality.appium.mobile.application.IMobileApplication;
 import aquality.appium.mobile.template.modules.CustomMobileModule;
 import aquality.appium.mobile.template.testng.utilities.ModuleFactory;
 import aquality.appium.mobile.template.utilities.IScreenshotProvider;
@@ -29,7 +28,7 @@ public class BaseTest {
     @Inject
     CustomMobileModule customBrowserModule;
 
-    private Application application;
+    private IMobileApplication application;
 
     @BeforeTest
     public void beforeTest() {
@@ -50,7 +49,7 @@ public class BaseTest {
                     application.getDriver().getPageSource(), "html");
             Allure.addAttachment("screenshot", "image/png",
                     new ByteArrayInputStream(screenshotProvider.takeScreenshot()), "png");
-            application.terminateApp(Configuration.getBundleId());
+            application.terminate();
             application.quit();
         }
     }
