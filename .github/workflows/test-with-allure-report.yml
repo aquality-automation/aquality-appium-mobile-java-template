@@ -35,7 +35,7 @@ jobs:
 
     concurrency: test-android-${{ github.event.inputs.environment == '' && 'stage' || github.event.inputs.environment }}
     name: Run tests against Android
-    runs-on: macos-latest
+    runs-on: macos-12
     outputs:
       maven_tests: ${{ steps.maven_tests.outcome }}
     steps:
@@ -84,7 +84,7 @@ jobs:
 
     concurrency: test-ios-${{ github.event.inputs.environment == '' && 'stage' || github.event.inputs.environment }}
     name: Run tests against iOS
-    runs-on: macos-latest
+    runs-on: macos-12
     outputs:
       maven_tests: ${{ steps.maven_tests.outcome }}
     steps:
