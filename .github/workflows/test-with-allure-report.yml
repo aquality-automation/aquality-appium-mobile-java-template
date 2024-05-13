@@ -6,7 +6,7 @@ on:
     paths:
       - 'aquality-appium-mobile-template/**'
       - 'aquality-appium-mobile-template-cucumber/**'
-      - 'aquality-selenium-template-testng/**'
+      - 'aquality-appium-mobile-template-testng/**'
       - 'scripts/**'
   push:
     branches: [ master ]
