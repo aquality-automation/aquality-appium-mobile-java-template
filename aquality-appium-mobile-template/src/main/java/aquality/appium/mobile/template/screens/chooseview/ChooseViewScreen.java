@@ -1,5 +1,6 @@
 package aquality.appium.mobile.template.screens.chooseview;
 
+import aquality.appium.mobile.elements.interfaces.ILabel;
 import aquality.appium.mobile.screens.Screen;
 import org.openqa.selenium.By;
 
@@ -13,6 +14,10 @@ public abstract class ChooseViewScreen extends Screen {
     }
 
     public void openView(final String viewName) {
-        getElementFactory().getLabel(accessibilityId(viewName), format("Choose %s view", viewName)).click();
+        getChooseViewLabel(viewName).click();
+    }
+
+    protected ILabel getChooseViewLabel(final String viewName) {
+        return getElementFactory().getLabel(accessibilityId(viewName), format("Choose %s view", viewName));
     }
 }
