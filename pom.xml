@@ -20,23 +20,30 @@
     <modules>
         <module>aquality-appium-mobile-template</module>
         <module>aquality-appium-mobile-template-cucumber</module>
+        <module>aquality-appium-mobile-template-testng</module>
     </modules>
 
     <properties>
-        <aspectj.version>1.8.10</aspectj.version>
+        <aspectj.version>1.9.7</aspectj.version>
+        <allure.version>2.19.0</allure.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.github.aquality-automation</groupId>
             <artifactId>aquality-appium-mobile</artifactId>            
-            <version>5.0.0</version>
+            <version>5.1.0</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.30</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-java-commons</artifactId>
+            <version>${allure.version}</version>
         </dependency>
     </dependencies>
 

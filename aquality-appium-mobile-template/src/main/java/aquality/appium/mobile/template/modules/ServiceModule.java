@@ -1,10 +1,10 @@
-package aquality.appium.mobile.template.cucumber.objectfactory;
+package aquality.appium.mobile.template.modules;
 
 import aquality.appium.mobile.template.utilities.IScreenshotProvider;
 import aquality.appium.mobile.template.utilities.ScreenshotProvider;
 import com.google.inject.AbstractModule;
 
-final class ServiceModule extends AbstractModule {
+public final class ServiceModule extends AbstractModule {
 
     @Override
     protected void configure() {

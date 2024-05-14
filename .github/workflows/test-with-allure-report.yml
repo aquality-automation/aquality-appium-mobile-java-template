@@ -6,6 +6,7 @@ on:
     paths:
       - 'aquality-appium-mobile-template/**'
       - 'aquality-appium-mobile-template-cucumber/**'
+      - 'aquality-appium-mobile-template-testng/**'
       - 'scripts/**'
   push:
     branches: [ master ]
@@ -23,6 +24,8 @@ on:
 jobs:
   build-and-test-android:
     env:
+      CUCUMBER_ALLURE_RESULTS: aquality-appium-mobile-template-cucumber/target/allure-results
+      TESTNG_ALLURE_RESULTS: aquality-appium-mobile-template-testng/target/allure-results
       SUBPROJECT_NAME: aquality-appium-mobile-template-cucumber
       ENVIRONMENT: ${{ github.event.inputs.environment == '' && 'stage' ||  github.event.inputs.environment }}
       ANDROID_PROFILE: Nexus 6
@@ -32,7 +35,7 @@ jobs:
 
     concurrency: test-android-${{ github.event.inputs.environment == '' && 'stage' || github.event.inputs.environment }}
     name: Run tests against Android
-    runs-on: macos-latest
+    runs-on: macos-12
     outputs:
       maven_tests: ${{ steps.maven_tests.outcome }}
     steps:
@@ -60,6 +63,10 @@ jobs:
           profile: ${{ env.ANDROID_PROFILE }}
           script: mvn test -DisRemote=true -DplatformName=android
 
+      - name: Copy TestNG allure result to the Cucumber allure result
+        if: always()
+        run: cp -r ${{ env.TESTNG_ALLURE_RESULTS }}/. ${{ env.CUCUMBER_ALLURE_RESULTS }}
+
       - name: Upload results as artifacts
         if: always()
         uses: actions/upload-artifact@master
@@ -69,13 +76,15 @@ jobs:
 
   build-and-test-ios:
     env:
+      CUCUMBER_ALLURE_RESULTS: aquality-appium-mobile-template-cucumber/target/allure-results
+      TESTNG_ALLURE_RESULTS: aquality-appium-mobile-template-testng/target/allure-results
       SUBPROJECT_NAME: aquality-appium-mobile-template-cucumber
       ENVIRONMENT: ${{ github.event.inputs.environment == '' && 'stage' ||  github.event.inputs.environment }}
       IOS_SIM_MODEL: iPhone 8
 
     concurrency: test-ios-${{ github.event.inputs.environment == '' && 'stage' || github.event.inputs.environment }}
     name: Run tests against iOS
-    runs-on: macos-latest
+    runs-on: macos-12
     outputs:
       maven_tests: ${{ steps.maven_tests.outcome }}
     steps:
@@ -108,6 +117,10 @@ jobs:
         if: always()
         id: maven_tests
         run: mvn test -DisRemote=true -DplatformName=ios
+
+      - name: Copy TestNG allure result to the Cucumber allure result
+        if: always()
+        run: cp -r ${{ env.TESTNG_ALLURE_RESULTS }}/. ${{ env.CUCUMBER_ALLURE_RESULTS }}
 
       - name: Upload results as artifacts
         if: always()

@@ -7,20 +7,20 @@
   "driverSettings": {
     "android": {
       "deviceKey": "Android_Emulator",
-      "applicationPath": "./src/test/resources/applications/TheApp-v1.10.0.apk",
+      "applicationPath": "../aquality-appium-mobile-template/src/main/resources/applications/TheApp-v1.10.0.apk",
       "capabilities": {
         "platformName": "Android",
         "automationName": "UiAutomator2",
         "appPackage": "io.cloudgrey.the_app",
         "appActivity": "io.cloudgrey.the_app.MainActivity",
-        "adbExecTimeout": 60000,
-        "androidInstallTimeout": 120000,
-        "uiautomator2ServerInstallTimeout": 120000
+        "adbExecTimeout": 90000,
+        "androidInstallTimeout": 150000,
+        "uiautomator2ServerInstallTimeout": 150000
       }
     },
     "ios": {
       "deviceKey": "iOS_Simulator",
-      "applicationPath": "./src/test/resources/applications/TheApp-v1.10.0.app.zip",
+      "applicationPath": "../aquality-appium-mobile-template/src/main/resources/applications/TheApp-v1.10.0.app.zip",
       "capabilities": {
         "platformName": "iOS",
         "automationName": "XCUITest",
@@ -48,7 +48,7 @@
     "timeoutCommand":180
   },
   "retry": {
-    "number": 2,
+    "number": 3,
     "pollingInterval": 300
   },
   "logger": {
