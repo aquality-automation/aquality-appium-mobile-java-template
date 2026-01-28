@@ -56,7 +56,7 @@ jobs:
         ANDROID_SDK_ID: system-images;android-29;google_apis_playstore;x86_64
       IOS:
         PLATFORM_NAME: ios
-        IOS_SIM_ID: iPhone-SE, 17.2
+        IOS_SIM_ID: iPhone-SE-3rd-generation, 17.4
         IOS_SIM_NAME: iPhone SE (3rd generation)
 
   steps:
@@ -98,12 +98,23 @@ jobs:
         appium driver install uiautomator2
         appium driver list
         echo "UIA2 driver installed"
-
+        
+        echo "Configuring Environment"
+        brew install --cask temurin@8
+        export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+        export PATH=$JAVA_HOME/bin:$PATH
+        echo export "ANDROID_HOME=\$ANDROID_HOME" >> ~/.bash_profile
+        export PATH=$PATH:$ANDROID_HOME
+        
         echo "ANDROID_HOME: ${ANDROID_HOME}"
+        echo "JAVA_HOME: ${JAVA_HOME}"
+        echo "PATH: ${PATH}"
+        
         echo "y" | $ANDROID_HOME/tools/bin/sdkmanager "$(ANDROID_SDK_ID)"
         echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n "$(ANDROID_EMU_NAME)" -k "$(ANDROID_SDK_ID)" -f
         $ANDROID_HOME/emulator/emulator -list-avds
 
+        echo "Starting emulator"
         nohup $ANDROID_HOME/emulator/emulator -avd "$(ANDROID_EMU_NAME)" -gpu swiftshader_indirect -noaudio -no-boot-anim -no-snapshot -verbose > /dev/null 2>&1 &
         $ANDROID_HOME/platform-tools/adb wait-for-device
         for i in {1..300}; do
