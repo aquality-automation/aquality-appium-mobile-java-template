@@ -2,40 +2,45 @@ trigger:
   - master
 
 pool:
-  vmImage: 'macOS-latest'
+  vmImage: 'macOS-14'
 
 jobs:
 - job: sonar
   displayName: Analyse code with SonarQube
 
   steps:
-  - task: SonarCloudPrepare@1
+  - task: SonarCloudPrepare@3
     displayName: 'Prepare SonarCloud analysis'
     inputs:
       SonarCloud: 'SonarCloud'
       organization: 'aqualityautomation'
       scannerMode: 'CLI'
       configMode: 'file'
-      extraProperties: |
-        sonar.coverage.exclusions=**/**
+      extraProperties: 'sonar.coverage.exclusions=**/**'
 
-  - task: Maven@3
+  - task: Maven@4
     displayName: 'Build project'
     inputs:
       mavenPomFile: 'pom.xml'
       mavenOptions: '-Xmx3072m'
       javaHomeOption: 'JDKVersion'
-      jdkVersionOption: '11'
+      jdkVersionOption: '1.11'
       jdkArchitectureOption: 'x64'
       publishJUnitResults: true
       testResultsFiles: '**/surefire-reports/TEST-*.xml'
       goals: 'clean'
+      mavenVersionOption: 'Default'
+      mavenAuthenticateFeed: false
+      effectivePomSkip: false
+      sonarQubeRunAnalysis: false
 
-  - task: SonarCloudAnalyze@1
+  - task: SonarCloudAnalyze@4
+    inputs:
+      jdkversion: 'JAVA_HOME_21_X64'
     displayName: 'Run SonarCloud code analysis'
     continueOnError: true
 
-  - task: SonarCloudPublish@1
+  - task: SonarCloudPublish@3
     displayName: 'Publish SonarCloud quality gate results'
     inputs:
       pollingTimeoutSec: '300'
@@ -48,11 +53,11 @@ jobs:
       ANDROID:
         PLATFORM_NAME: android
         ANDROID_EMU_NAME: test
-        ANDROID_SDK_ID: system-images;android-28;google_apis_playstore;x86
+        ANDROID_SDK_ID: system-images;android-29;google_apis_playstore;x86_64
       IOS:
         PLATFORM_NAME: ios
-        IOS_SIM_ID: iPhone-8, 16.2
-        IOS_SIM_NAME: iPhone 8
+        IOS_SIM_ID: iPhone-SE, 17.2
+        IOS_SIM_NAME: iPhone SE (3rd generation)
 
   steps:
   - task: CmdLine@2
@@ -69,7 +74,7 @@ jobs:
         echo "PATH: ${PATH}"
 
         echo "Installing Appium"
-        npm install -g appium@next
+        npm install -g appium@3
         ln -fs /usr/local/lib/node_modules/appium/build/lib/main.js /usr/local/bin/appium
         chmod +x /usr/local/bin/appium
         export PATH=$PATH:/usr/local/bin/appium
@@ -99,10 +104,18 @@ jobs:
         echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n "$(ANDROID_EMU_NAME)" -k "$(ANDROID_SDK_ID)" -f
         $ANDROID_HOME/emulator/emulator -list-avds
 
-        nohup $ANDROID_HOME/emulator/emulator -avd "$(ANDROID_EMU_NAME)" -gpu swiftshader_indirect -noaudio -no-boot-anim -no-snapshot > /dev/null 2>&1 &
+        nohup $ANDROID_HOME/emulator/emulator -avd "$(ANDROID_EMU_NAME)" -gpu swiftshader_indirect -noaudio -no-boot-anim -no-snapshot -verbose > /dev/null 2>&1 &
         $ANDROID_HOME/platform-tools/adb wait-for-device
-        while [[ $? -ne 0 ]]; do sleep 1; $ANDROID_HOME/platform-tools/adb shell pm list packages; done;
+        for i in {1..300}; do
+            $ANDROID_HOME/platform-tools/adb shell pm list packages >/dev/null 2>&1 && break
+            sleep 2
+        done
+        if [[ $i -eq 300 ]]; then
+          echo "Emulator failed to boot in time" >&2
+          exit 1
+        fi
         $ANDROID_HOME/platform-tools/adb devices
+        echo "Emulator started"
     condition: and(succeeded(), eq(variables['PLATFORM_NAME'], 'android'))
 
   - task: CmdLine@2
@@ -129,11 +142,11 @@ jobs:
     displayName: 'Start Appium server'
     inputs:
       script: |
-        appium --allow-insecure chromedriver_autodownload --base-path /wd/hub &
+        appium --allow-insecure UiAutomator2:chromedriver_autodownload --base-path /wd/hub &
         echo "Appium server started"
     condition: succeeded()
 
-  - task: Maven@3
+  - task: Maven@4
     displayName: 'Run tests'
     inputs:
       mavenPomFile: 'pom.xml'
@@ -141,7 +154,7 @@ jobs:
       publishJUnitResults: true
       testResultsFiles: '**/surefire-reports/TEST-*.xml'
       javaHomeOption: 'JDKVersion'
-      jdkVersionOption: '11'
+      jdkVersionOption: '1.11'
       mavenVersionOption: 'Default'
       mavenAuthenticateFeed: false
       effectivePomSkip: false
