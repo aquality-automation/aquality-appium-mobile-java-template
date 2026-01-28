@@ -35,14 +35,14 @@ jobs:
 
     concurrency: test-android-${{ github.event.inputs.environment == '' && 'stage' || github.event.inputs.environment }}
     name: Run tests against Android
-    runs-on: macos-14
+    runs-on: macos-14-large
     outputs:
       maven_tests: ${{ steps.maven_tests.outcome }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'adopt'
@@ -85,14 +85,14 @@ jobs:
 
     concurrency: test-ios-${{ github.event.inputs.environment == '' && 'stage' || github.event.inputs.environment }}
     name: Run tests against iOS
-    runs-on: macos-14
+    runs-on: macos-14-large
     outputs:
       maven_tests: ${{ steps.maven_tests.outcome }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'adopt'
@@ -140,7 +140,7 @@ jobs:
       GH_PAGES_URL: https://aquality-automation.github.io/aquality-appium-mobile-java-template
     steps:
       - name: Get Allure history
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         if: always()
         continue-on-error: true
         with:

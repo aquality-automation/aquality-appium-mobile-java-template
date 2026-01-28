@@ -1,6 +1,6 @@
 #!/bin/bash
 set -ex
-npm install -g appium@3
+npm install --ignore-scripts -g appium@3
 appium -v
 appium driver install uiautomator2
 appium driver list

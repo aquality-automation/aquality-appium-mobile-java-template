@@ -1,6 +1,6 @@
 #!/bin/bash
 set -ex
-npm install -g appium@3
+npm install --ignore-scripts -g appium@3
 appium -v
 appium driver install xcuitest
 sudo /usr/bin/xcode-select -switch /Applications/Xcode.app/Contents/Developer
