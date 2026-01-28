@@ -56,7 +56,7 @@ jobs:
         ANDROID_SDK_ID: system-images;android-29;google_apis_playstore;x86_64
       IOS:
         PLATFORM_NAME: ios
-        IOS_SIM_ID: iPhone-SE-3rd-generation, 17.4
+        IOS_SIM_ID: iPhone-SE-3rd-generation, 17.0
         IOS_SIM_NAME: iPhone SE (3rd generation)
 
   steps:
@@ -81,7 +81,7 @@ jobs:
         $ANDROID_HOME/emulator/emulator -list-avds
 
         echo "Starting emulator"
-        nohup $ANDROID_HOME/emulator/emulator -avd "$(ANDROID_EMU_NAME)" -gpu swiftshader_indirect -noaudio -no-boot-anim -no-snapshot -verbose > /dev/null 2>&1 &
+        nohup $ANDROID_HOME/emulator/emulator -avd "$(ANDROID_EMU_NAME)" -gpu swiftshader_indirect -noaudio -no-boot-anim -no-snapshot-save -no-window -camera-back none -verbose > /dev/null 2>&1 &
         $ANDROID_HOME/platform-tools/adb wait-for-device
         for i in {1..300}; do
             $ANDROID_HOME/platform-tools/adb shell pm list packages >/dev/null 2>&1 && break
@@ -166,7 +166,7 @@ jobs:
     displayName: 'Start Appium server'
     inputs:
       script: |
-        appium --allow-insecure UiAutomator2:chromedriver_autodownload --base-path /wd/hub &
+        appium --allow-insecure uiautomator2:chromedriver_autodownload --base-path /wd/hub &
         echo "Appium server started"
     condition: succeeded()
 

@@ -2,7 +2,7 @@
   "iOS_Simulator": {
     "capabilities": {
       "deviceName": "iPhone SE (3rd generation)",
-      "platformVersion": "17.4"
+      "platformVersion": "17.0"
     }
   },
   "Android_Emulator": {
