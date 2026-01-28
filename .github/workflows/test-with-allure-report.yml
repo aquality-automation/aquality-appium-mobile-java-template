@@ -112,7 +112,7 @@ jobs:
       SUBPROJECT_NAME: aquality-appium-mobile-template-cucumber
       ENVIRONMENT: ${{ github.event.inputs.environment == '' && 'stage' ||  github.event.inputs.environment }}
       IOS_SIM_MODEL: iPhone SE (3rd generation)
-      IOS_SIM_OS_VERSION: 17.0
+      IOS_SIM_OS_VERSION: '17.0'
 
     concurrency: test-ios-${{ github.event.inputs.environment == '' && 'stage' || github.event.inputs.environment }}
     name: Run tests against iOS
