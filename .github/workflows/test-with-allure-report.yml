@@ -31,20 +31,20 @@ jobs:
       ANDROID_PROFILE: Nexus 6
       ANDROID_TARGET: google_apis
       ANDROID_API_LEVEL: 28
-      ANDROID_ARCH: x86_64
+      ANDROID_ARCH: arm64-v8a
 
     concurrency: test-android-${{ github.event.inputs.environment == '' && 'stage' || github.event.inputs.environment }}
     name: Run tests against Android
-    runs-on: macos-12
+    runs-on: macos-14
     outputs:
       maven_tests: ${{ steps.maven_tests.outcome }}
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up JDK 11
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          java-version: '11'
+          java-version: '17'
           distribution: 'adopt'
           cache: maven
 
@@ -85,16 +85,16 @@ jobs:
 
     concurrency: test-ios-${{ github.event.inputs.environment == '' && 'stage' || github.event.inputs.environment }}
     name: Run tests against iOS
-    runs-on: macos-12
+    runs-on: macos-14
     outputs:
       maven_tests: ${{ steps.maven_tests.outcome }}
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up JDK 11
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          java-version: '11'
+          java-version: '17'
           distribution: 'adopt'
           cache: maven
 
