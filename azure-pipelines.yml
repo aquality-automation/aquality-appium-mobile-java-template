@@ -125,7 +125,7 @@ jobs:
         xcrun simctl delete $SIM_UID
         xcrun simctl delete unavailable
         xcrun simctl erase all
-        xcrun simctl create "$IOS_SIM_NAME" "$IOS_SIM_NAME" "$IOS_VERSION_TYPE"
+        SIM_UID=$(xcrun simctl create "$IOS_SIM_NAME" "$IOS_SIM_NAME" "$IOS_VERSION_TYPE")
         xcrun simctl boot $SIM_UID
 
         echo "Wait for simulator to be ready"
