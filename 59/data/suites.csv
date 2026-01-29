@@ -1,0 +1,5 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","350078","I try to login with invalid credentials","","Thu Jan 29 11:38:27 UTC 2026","passed","Thu Jan 29 11:44:17 UTC 2026","","Demo","I try to login with invalid credentials",""
+"","7","ScenarioContext demo","","Thu Jan 29 11:44:22 UTC 2026","passed","Thu Jan 29 11:44:22 UTC 2026","","Demo","ScenarioContext demo",""
+"","12220","Login with invalid credentials is impossible","Surefire suite","Thu Jan 29 11:44:57 UTC 2026","passed","Thu Jan 29 11:45:09 UTC 2026","aquality.appium.mobile.template.testng.tests.LoginTest","Surefire test","aquality.appium.mobile.template.testng.tests.LoginTest","testLoginWithInvalidCredentials"
+"","2","ScenarioContext demo","","Thu Jan 29 11:44:22 UTC 2026","passed","Thu Jan 29 11:44:22 UTC 2026","","Demo","ScenarioContext demo",""
