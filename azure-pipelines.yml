@@ -58,6 +58,7 @@ jobs:
         PLATFORM_NAME: ios
         IOS_SIM_ID: iPhone-SE-3rd-generation, 17.0
         IOS_SIM_NAME: iPhone SE (3rd generation)
+        XCODE_VERSION: 15.0.1
 
   steps:
 
@@ -99,6 +100,17 @@ jobs:
     displayName: 'Start iOS simulator'
     inputs:
       script: |
+        echo "Available Xcode versions:"
+        ls /Applications | grep 'Xcode'
+        echo "Currently selected Xcode:"
+        xcode-select --print-path
+        xcodebuild -version
+        echo "Setup Xcode"
+        sudo xcode-select -s /Applications/Xcode_${XCODE_VERSION}.app/Contents/Developer
+        echo "Selected Xcode after switching:"
+        xcode-select --print-path
+        xcodebuild -version
+        
         echo "Starting ${IOS_SIM_ID} simulator"
         npm install -g ios-sim@9.0.0
         ios-sim showdevicetypes
