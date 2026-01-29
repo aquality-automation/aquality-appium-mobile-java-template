@@ -58,6 +58,7 @@ jobs:
         PLATFORM_NAME: ios
         IOS_SIM_ID: iPhone-SE-3rd-generation, 17.0
         IOS_SIM_NAME: iPhone SE (3rd generation)
+        IOS_RUNTIME_ID: iOS-17.0
         XCODE_VERSION: 15.0.1
 
   steps:
@@ -111,11 +112,19 @@ jobs:
         xcode-select --print-path
         xcodebuild -version
         
-        echo "Starting ${IOS_SIM_ID} simulator"
-        npm install -g ios-sim@9.0.0
-        ios-sim showdevicetypes
-        ios-sim start --devicetypeid "$(IOS_SIM_ID)" --verbose
-        echo "Simulator started"
+        echo "List all devices before erasing"
+        xcrun simctl list devices
+        SIM_UID="$(xcrun simctl list devices | grep -m 1 "$IOS_SIM_NAME" | grep -E -o -i "([0-9A-F]{8}-([0-9A-F]{4}-){3}[0-9A-F]{12})")"        
+        
+        # Delete all simulators and start fresh
+        xcrun simctl delete $SIM_UID
+        xcrun simctl delete unavailable
+        xcrun simctl erase all
+        
+        # Create a fresh simulator
+        SIM_UID=$(xcrun simctl create "$IOS_SIM_NAME" "$IOS_SIM_NAME" "$IOS_RUNTIME_ID")
+        echo "Created simulator: $SIM_UID"
+        echo "##vso[task.setvariable variable=SIMULATOR_ID]$SIM_UID"
 
         echo "Wait for simulator to be ready"
         SIM_UID="$(xcrun simctl list devices | grep -m 1 "$IOS_SIM_NAME" | grep -E -o -i "([0-9A-F]{8}-([0-9A-F]{4}-){3}[0-9A-F]{12})")"
