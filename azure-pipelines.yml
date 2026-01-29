@@ -113,6 +113,11 @@ jobs:
         
         SIM_UID="$(xcrun simctl list devices | grep -m 1 "$IOS_SIM_NAME" | grep -E -o -i "([0-9A-F]{8}-([0-9A-F]{4}-){3}[0-9A-F]{12})")"
         echo "SIM_UID: ${SIM_UID}"
+        if [[ -z "$SIM_UID" ]]; then
+          echo "Simulator '$IOS_SIM_NAME' not found. Available devices:" >&2
+          xcrun simctl list devices
+          exit 1
+        fi
         
         echo "Erasing device then boot ${IOS_SIM_ID} simulator"
         xcrun simctl erase $SIM_UID
@@ -120,7 +125,7 @@ jobs:
 
         echo "Wait for simulator to be ready"
         xcrun simctl list devices
-        xcrun simctl bootstatus $SIM_UID
+        xcrun simctl bootstatus $SIM_UID -b
     condition: and(succeeded(), eq(variables['PLATFORM_NAME'], 'ios'))
 
   - task: CmdLine@2
