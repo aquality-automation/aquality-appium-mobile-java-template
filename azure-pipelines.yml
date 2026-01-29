@@ -59,6 +59,7 @@ jobs:
         IOS_SIM_ID: iPhone-SE-3rd-generation, 17.0
         IOS_SIM_NAME: iPhone SE (3rd generation)
         XCODE_VERSION: 15.0.1
+        IOS_VERSION_TYPE: iOS-17.0
 
   steps:
 
@@ -119,13 +120,17 @@ jobs:
           exit 1
         fi
         
-        echo "Erasing device then boot ${IOS_SIM_ID} simulator"
+        echo "Deleting device then recreate and boot ${IOS_SIM_ID} simulator"
         xcrun simctl erase $SIM_UID
+        xcrun simctl delete $SIM_UID
+        xcrun simctl delete unavailable
+        xcrun simctl erase all
+        xcrun simctl create "$IOS_SIM_NAME" "$IOS_SIM_NAME" "$IOS_VERSION_TYPE"
         xcrun simctl boot $SIM_UID
 
         echo "Wait for simulator to be ready"
         xcrun simctl list devices
-        xcrun simctl bootstatus $SIM_UID -b
+        xcrun simctl bootstatus $SIM_UID
     condition: and(succeeded(), eq(variables['PLATFORM_NAME'], 'ios'))
 
   - task: CmdLine@2
