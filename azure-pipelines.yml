@@ -59,7 +59,7 @@ jobs:
         IOS_SIM_ID: iPhone-SE-3rd-generation, 17.0
         IOS_SIM_NAME: iPhone SE (3rd generation)
         XCODE_VERSION: 15.0.1
-        IOS_VERSION_TYPE: iOS-17.0
+        IOS_VERSION_TYPE: iOS-17-0
 
   steps:
 
