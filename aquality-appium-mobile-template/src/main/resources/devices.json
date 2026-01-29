@@ -1,8 +1,8 @@
 {
   "iOS_Simulator": {
     "capabilities": {
-      "deviceName": "iPhone 8",
-      "platformVersion": "16.2"
+      "deviceName": "iPhone SE (3rd generation)",
+      "platformVersion": "17.0"
     }
   },
   "Android_Emulator": {
