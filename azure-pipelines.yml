@@ -59,7 +59,6 @@ jobs:
         IOS_SIM_ID: iPhone-SE-3rd-generation, 17.0
         IOS_SIM_NAME: iPhone SE (3rd generation)
         XCODE_VERSION: 15.0.1
-        IOS_VERSION_TYPE: com.apple.CoreSimulator.SimRuntime.iOS-17-0
 
   steps:
 
@@ -111,7 +110,8 @@ jobs:
         echo "Selected Xcode after switching:"
         xcode-select --print-path
         xcodebuild -version
-        
+        sudo xcodebuild -runFirstLaunch
+                
         SIM_UID="$(xcrun simctl list devices | grep -m 1 "$IOS_SIM_NAME" | grep -E -o -i "([0-9A-F]{8}-([0-9A-F]{4}-){3}[0-9A-F]{12})")"
         echo "SIM_UID: ${SIM_UID}"
         if [[ -z "$SIM_UID" ]]; then
@@ -120,17 +120,45 @@ jobs:
           exit 1
         fi
         
-        echo "Deleting device then recreate and boot ${IOS_SIM_ID} simulator"
-        xcrun simctl erase $SIM_UID
-        xcrun simctl delete $SIM_UID
-        xcrun simctl delete unavailable
-        xcrun simctl erase all
-        SIM_UID=$(xcrun simctl create "$IOS_SIM_NAME" "$IOS_SIM_NAME" "$IOS_VERSION_TYPE")
+        echo "Erasing device"
+        xcrun simctl delete unavailable   
+        xcrun simctl erase $SIM_UID     
+                
+        echo "Resetting CoreSimulator services"
+        killall -9 com.apple.CoreSimulator.CoreSimulatorService || true
+        killall -9 Simulator || true
+        
+        echo "Booting simulator"
         xcrun simctl boot $SIM_UID
+        
+        echo "List all devices"
+        xcrun simctl list devices        
 
         echo "Wait for simulator to be ready"
-        xcrun simctl list devices
-        xcrun simctl bootstatus $SIM_UID
+        BOOTSTATUS_OUTPUT="$(xcrun simctl bootstatus "$SIM_UID" -b 2>&1)"
+        BOOTSTATUS_RC=$?
+        
+        echo "$BOOTSTATUS_OUTPUT"
+        
+        if echo "$BOOTSTATUS_OUTPUT" | grep -qi "Data Migration Failed"; then
+          echo "Detected simulator data migration failure"
+        
+          echo "Resetting CoreSimulator and retrying"
+          killall -9 com.apple.CoreSimulator.CoreSimulatorService || true
+          killall -9 Simulator || true
+        
+          xcrun simctl shutdown "$SIM_UID" || true
+          xcrun simctl erase "$SIM_UID"
+        
+          xcrun simctl boot "$SIM_UID"
+        
+          xcrun simctl bootstatus "$SIM_UID" -b
+        elif [ $BOOTSTATUS_RC -ne 0 ]; then
+          echo "bootstatus failed with exit code $BOOTSTATUS_RC"
+          exit $BOOTSTATUS_RC
+        fi
+        
+
     condition: and(succeeded(), eq(variables['PLATFORM_NAME'], 'ios'))
 
   - task: CmdLine@2
