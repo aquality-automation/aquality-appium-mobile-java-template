@@ -56,9 +56,9 @@ jobs:
         ANDROID_SDK_ID: system-images;android-28;google_apis_playstore;x86_64
       IOS:
         PLATFORM_NAME: ios
-        IOS_SIM_ID: iPhone-SE-3rd-generation, 17.0
+        IOS_SIM_ID: iPhone-SE-3rd-generation, 18.2
         IOS_SIM_NAME: iPhone SE (3rd generation)
-        XCODE_VERSION: 15.0.1
+        XCODE_VERSION: 16.2
 
   steps:
 
