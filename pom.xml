@@ -25,7 +25,7 @@
 
     <properties>
         <aspectj.version>1.9.25.1</aspectj.version>
-        <allure.version>2.21.0</allure.version>
+        <allure.version>2.35.5</allure.version>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -34,12 +34,12 @@
         <dependency>
             <groupId>com.github.aquality-automation</groupId>
             <artifactId>aquality-appium-mobile</artifactId>            
-            <version>7.0.0</version>
+            <version>8.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.42</version>
+            <version>1.18.48</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
