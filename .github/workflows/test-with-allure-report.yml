@@ -113,7 +113,7 @@ jobs:
       SUBPROJECT_NAME: aquality-appium-mobile-template-cucumber
       ENVIRONMENT: ${{ github.event.inputs.environment == '' && 'stage' ||  github.event.inputs.environment }}
       IOS_SIM_MODEL: iPhone SE (3rd generation)
-      IOS_SIM_OS_VERSION: '18.2'
+      IOS_SIM_OS_VERSION: '18.6'
 
     concurrency: test-ios-${{ github.event.inputs.environment == '' && 'stage' || github.event.inputs.environment }}
     name: Run tests against iOS
@@ -150,7 +150,7 @@ jobs:
       - name: Test against iOS
         if: always()
         id: maven_tests
-        run: mvn test -DisRemote=true -DplatformName=ios
+        run: mvn test -DisRemote=true -DplatformName=ios -DiOS_Simulator.capabilities.platformVersion=${{ env.IOS_SIM_OS_VERSION }}
 
       - name: Copy TestNG allure result to the Cucumber allure result
         if: always()
