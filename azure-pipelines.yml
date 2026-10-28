@@ -115,10 +115,13 @@ jobs:
         echo "Parsing simulator details from IOS_SIM_NAME and IOS_SIM_OS_VERSION"
         echo "Simulator Name: $IOS_SIM_NAME"
         echo "Simulator OS Version: $IOS_SIM_OS_VERSION"
+        # Map the OS version to the correct runtime key format
+        RUNTIME_KEY="com.apple.CoreSimulator.SimRuntime.iOS-${IOS_SIM_OS_VERSION//./-}"
+  
   
         SIMULATOR_JSON=$(xcrun simctl list devices -j)
-        SIM_UID=$(echo "$SIMULATOR_JSON" | jq -r --arg NAME "$IOS_SIM_NAME" --arg OS "$IOS_SIM_OS_VERSION" '.devices[$OS][] | select(.name == $NAME) | .udid')
-  
+        SIM_UID=$(echo "$SIMULATOR_JSON" | jq -r --arg NAME "$IOS_SIM_NAME" --arg OS "$RUNTIME_KEY" '.devices[$OS][] | select(.name == $NAME) | .udid')
+
         if [[ -z "$SIM_UID" ]]; then
           echo "Simulator '$IOS_SIM_NAME' with OS version '$IOS_SIM_OS_VERSION' not found. Available devices:" >&2
           echo "$SIMULATOR_JSON" | jq

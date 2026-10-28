@@ -96,6 +96,8 @@ jobs:
           script: >-
             trap '(sleep 300; while pgrep -x crashpad_handler >/dev/null 2>&1; do echo "crashpad_handler: still running, killing"; pkill -9 crashpad_handler || true; sleep 5; done; echo "crashpad_handler: gone") &' EXIT;
             mvn test -DisRemote=true -DplatformName=android
+            echo "Stopping Appium server...";
+            pkill -f appium || echo "Appium server already stopped."
 
       - name: Copy TestNG allure result to the Cucumber allure result
         if: always()
@@ -146,8 +148,10 @@ jobs:
 
       - name: Wait for simulator to be ready
         run:  |
+          RUNTIME_KEY="com.apple.CoreSimulator.SimRuntime.iOS-${IOS_SIM_OS_VERSION//./-}"
           SIMULATOR_JSON=$(xcrun simctl list devices -j)
-          SIM_UID=$(echo "$SIMULATOR_JSON" | jq -r --arg NAME "$IOS_SIM_NAME" --arg OS "$IOS_SIM_OS_VERSION" '.devices[$OS][] | select(.name == $NAME) | .udid')
+          SIM_UID=$(echo "$SIMULATOR_JSON" | jq -r --arg NAME "$IOS_SIM_NAME" --arg OS "$RUNTIME_KEY" '.devices[$OS][] | select(.name == $NAME) | .udid')
+          
           echo "SIM_UID: $SIM_UID"
           xcrun simctl bootstatus $SIM_UID
 
