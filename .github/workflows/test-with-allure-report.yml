@@ -117,7 +117,7 @@ jobs:
 
     concurrency: test-ios-${{ github.event.inputs.environment == '' && 'stage' || github.event.inputs.environment }}
     name: Run tests against iOS
-    runs-on: macos-14-large
+    runs-on: macos-15
     outputs:
       maven_tests: ${{ steps.maven_tests.outcome }}
     steps:

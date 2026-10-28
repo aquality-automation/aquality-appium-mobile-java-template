@@ -112,36 +112,36 @@ jobs:
         xcodebuild -version
         sudo xcodebuild -runFirstLaunch
         
-        echo "Parsing simulator details from IOS_SIM_ID"
-        SIM_NAME=$(echo "$IOS_SIM_ID" | cut -d',' -f1 | xargs)
+        echo "Parsing simulator details from IOS_SIM_NAME and IOS_SIM_OS_VERSION"
+        echo "Simulator Name: $IOS_SIM_NAME"
         SIM_OS_VERSION=$(echo "$IOS_SIM_ID" | cut -d',' -f2 | xargs)
+        echo "Simulator OS Version: $IOS_SIM_OS_VERSION"
   
-        echo "Simulator Name: $SIM_NAME"
-        echo "Simulator OS Version: $SIM_OS_VERSION"
-  
-        SIM_UID=$(xcrun simctl list devices | grep -m 1 "$SIM_NAME" | grep "$SIM_OS_VERSION" | grep -E -o -i "([0-9A-F]{8}-([0-9A-F]{4}-){3}[0-9A-F]{12})")
-        echo "SIM_UID: ${SIM_UID}"
+        SIMULATOR_JSON=$(xcrun simctl list devices -j)
+        SIM_UID=$(echo "$SIMULATOR_JSON" | jq -r --arg NAME "$IOS_SIM_NAME" --arg OS "$IOS_SIM_OS_VERSION" '.devices | to_entries[] | select(.key | contains($OS)) | .value[] | select(.name == $NAME) | .udid')
   
         if [[ -z "$SIM_UID" ]]; then
-          echo "Simulator '$SIM_NAME' with OS version '$SIM_OS_VERSION' not found. Available devices:" >&2
-          xcrun simctl list devices
+          echo "Simulator '$IOS_SIM_NAME' with OS version '$IOS_SIM_OS_VERSION' not found. Available devices:" >&2
+          echo "$SIMULATOR_JSON" | jq
           exit 1
         fi
   
+        echo "SIM_UID: $SIM_UID"
+  
         echo "Erasing device"
         xcrun simctl delete unavailable
-        xcrun simctl erase $SIM_UID
+        xcrun simctl erase "$SIM_UID"
   
         echo "Resetting CoreSimulator services"
         killall -9 com.apple.CoreSimulator.CoreSimulatorService || true
         killall -9 Simulator || true
   
         echo "Booting simulator"
-        xcrun simctl boot $SIM_UID
+        xcrun simctl boot "$SIM_UID"
         
         echo "List all devices"
         xcrun simctl list devices        
-
+  
         echo "Wait for simulator to be ready"
         BOOTSTATUS_OUTPUT=$(xcrun simctl bootstatus "$SIM_UID" -b 2>&1)
         BOOTSTATUS_RC=$?
@@ -164,9 +164,9 @@ jobs:
         elif [ $BOOTSTATUS_RC -ne 0 ]; then
           echo "bootstatus failed with exit code $BOOTSTATUS_RC"
           exit $BOOTSTATUS_RC
-        fi        
+        fi      
 
-    condition: and(succeeded(), eq(variables['PLATFORM_NAME'], 'ios'))
+      condition: and(succeeded(), eq(variables['PLATFORM_NAME'], 'ios'))
 
   - task: CmdLine@2
     displayName: 'Configure Appium'
