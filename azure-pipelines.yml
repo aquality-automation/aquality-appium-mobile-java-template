@@ -56,8 +56,8 @@ jobs:
         ANDROID_SDK_ID: system-images;android-28;google_apis_playstore;x86_64
       IOS:
         PLATFORM_NAME: ios
-        IOS_SIM_ID: iPhone-SE-3rd-generation, 18.2
         IOS_SIM_NAME: iPhone SE (3rd generation)
+        IOS_SIM_OS_VERSION: '18.2'
         XCODE_VERSION: 16.2
 
   steps:
@@ -114,7 +114,6 @@ jobs:
         
         echo "Parsing simulator details from IOS_SIM_NAME and IOS_SIM_OS_VERSION"
         echo "Simulator Name: $IOS_SIM_NAME"
-        SIM_OS_VERSION=$(echo "$IOS_SIM_ID" | cut -d',' -f2 | xargs)
         echo "Simulator OS Version: $IOS_SIM_OS_VERSION"
   
         SIMULATOR_JSON=$(xcrun simctl list devices -j)
@@ -166,7 +165,7 @@ jobs:
           exit $BOOTSTATUS_RC
         fi      
 
-      condition: and(succeeded(), eq(variables['PLATFORM_NAME'], 'ios'))
+    condition: and(succeeded(), eq(variables['PLATFORM_NAME'], 'ios'))
 
   - task: CmdLine@2
     displayName: 'Configure Appium'

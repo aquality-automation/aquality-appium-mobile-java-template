@@ -94,8 +94,8 @@ jobs:
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
           script: >-
+            trap '(sleep 300; while pgrep -x crashpad_handler >/dev/null 2>&1; do echo "crashpad_handler: still running, killing"; pkill -9 crashpad_handler || true; sleep 5; done; echo "crashpad_handler: gone") &' EXIT;
             mvn test -DisRemote=true -DplatformName=android
-            killall -INT crashpad_handler || true
 
       - name: Copy TestNG allure result to the Cucumber allure result
         if: always()
@@ -146,7 +146,8 @@ jobs:
 
       - name: Wait for simulator to be ready
         run:  |
-          SIM_UID="$(xcrun simctl list devices | grep -m 1 "$IOS_SIM_MODEL" | grep "$IOS_SIM_OS_VERSION" | grep -E -o -i "([0-9A-F]{8}-([0-9A-F]{4}-){3}[0-9A-F]{12})")"
+          SIMULATOR_JSON=$(xcrun simctl list devices -j)
+          SIM_UID=$(echo "$SIMULATOR_JSON" | jq -r --arg NAME "$IOS_SIM_NAME" --arg OS "$IOS_SIM_OS_VERSION" '.devices[$OS][] | select(.name == $NAME) | .udid')
           echo "SIM_UID: $SIM_UID"
           xcrun simctl bootstatus $SIM_UID
 
