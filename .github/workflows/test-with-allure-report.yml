@@ -98,7 +98,11 @@ jobs:
             echo "Stopping Appium server..."
             pkill -9 appium || echo "Appium server already stopped."
             pkill -9 adb || echo "adb already stopped."
-            pkill -f crashpad_handler || echo "crashpad_handler already stopped."
+            if pgrep -f crashpad_handler > /dev/null; then
+              pkill -f crashpad_handler || echo "Failed to stop crashpad_handler."
+            else
+              echo "crashpad_handler already stopped."
+            fi
 
       - name: Copy TestNG allure result to the Cucumber allure result
         if: always()
