@@ -118,7 +118,7 @@ jobs:
         echo "Simulator OS Version: $IOS_SIM_OS_VERSION"
   
         SIMULATOR_JSON=$(xcrun simctl list devices -j)
-        SIM_UID=$(echo "$SIMULATOR_JSON" | jq -r --arg NAME "$IOS_SIM_NAME" --arg OS "$IOS_SIM_OS_VERSION" '.devices | to_entries[] | select(.key | contains($OS)) | .value[] | select(.name == $NAME) | .udid')
+        SIM_UID=$(echo "$SIMULATOR_JSON" | jq -r --arg NAME "$IOS_SIM_NAME" --arg OS "$IOS_SIM_OS_VERSION" '.devices[$OS][] | select(.name == $NAME) | .udid')
   
         if [[ -z "$SIM_UID" ]]; then
           echo "Simulator '$IOS_SIM_NAME' with OS version '$IOS_SIM_OS_VERSION' not found. Available devices:" >&2
