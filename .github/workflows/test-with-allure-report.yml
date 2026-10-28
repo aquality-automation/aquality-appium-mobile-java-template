@@ -95,7 +95,7 @@ jobs:
           disable-animations: true
           script: >-
             trap '(sleep 300; while pgrep -x crashpad_handler >/dev/null 2>&1; do echo "crashpad_handler: still running, killing"; pkill -9 crashpad_handler || true; sleep 5; done; echo "crashpad_handler: gone") &' EXIT;
-            mvn test -DisRemote=true -DplatformName=android
+            mvn test -DisRemote=true -DplatformName=android;
             echo "Stopping Appium server...";
             pkill -f appium || echo "Appium server already stopped."
 
