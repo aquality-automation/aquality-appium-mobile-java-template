@@ -98,7 +98,7 @@ jobs:
             echo "Stopping Appium server..."
             pkill -9 appium || echo "Appium server already stopped."
             pkill -9 adb || echo "adb already stopped."
-            pkill -9 crashpad_handler || echo "crashpad_handler already stopped."
+            pkill -f crashpad_handler || echo "crashpad_handler already stopped."
 
       - name: Copy TestNG allure result to the Cucumber allure result
         if: always()
@@ -155,10 +155,10 @@ jobs:
           echo "Available devices:"
           echo "$SIMULATOR_JSON" | jq
           
-          SIM_UID=$(echo "$SIMULATOR_JSON" | jq -r --arg NAME "$IOS_SIM_NAME" --arg OS "$RUNTIME_KEY" '.devices[$OS][] | select(.name == $NAME) | .udid')
+          SIM_UID=$(echo "$SIMULATOR_JSON" | jq -r --arg NAME "$IOS_SIM_MODEL" --arg OS "$RUNTIME_KEY" '.devices[$OS][] | select(.name == $NAME) | .udid')
           
           if [[ -z "$SIM_UID" ]]; then
-            echo "Error: Simulator '$IOS_SIM_NAME' with OS version '$IOS_SIM_OS_VERSION' not found."
+            echo "Error: Simulator '$IOS_SIM_MODEL' with OS version '$IOS_SIM_OS_VERSION' not found."
             echo "Ensure the simulator name and OS version are correct."
             exit 1
           fi
