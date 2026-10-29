@@ -8,6 +8,7 @@ on:
       - 'aquality-appium-mobile-template-cucumber/**'
       - 'aquality-appium-mobile-template-testng/**'
       - 'scripts/**'
+      - '.github/workflows/**'
   push:
     branches: [ master ]
 
@@ -92,7 +93,11 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: mvn test -DisRemote=true -DplatformName=android
+          script: |
+            mvn test -DisRemote=true -DplatformName=android
+            echo "Stopping Appium server..."
+            pkill -9 appium || echo "Appium server already stopped."
+            pkill -9 adb || echo "adb already stopped."
 
       - name: Copy TestNG allure result to the Cucumber allure result
         if: always()
@@ -112,11 +117,11 @@ jobs:
       SUBPROJECT_NAME: aquality-appium-mobile-template-cucumber
       ENVIRONMENT: ${{ github.event.inputs.environment == '' && 'stage' ||  github.event.inputs.environment }}
       IOS_SIM_MODEL: iPhone SE (3rd generation)
-      IOS_SIM_OS_VERSION: '17.0'
+      IOS_SIM_OS_VERSION: '18.6'
 
     concurrency: test-ios-${{ github.event.inputs.environment == '' && 'stage' || github.event.inputs.environment }}
     name: Run tests against iOS
-    runs-on: macos-14
+    runs-on: macos-15
     outputs:
       maven_tests: ${{ steps.maven_tests.outcome }}
     steps:
@@ -143,13 +148,27 @@ jobs:
 
       - name: Wait for simulator to be ready
         run:  |
-          SIM_UID="$(xcrun simctl list devices | grep -m 1 "$IOS_SIM_MODEL" | grep -E -o -i "([0-9A-F]{8}-([0-9A-F]{4}-){3}[0-9A-F]{12})")"
+          RUNTIME_KEY="com.apple.CoreSimulator.SimRuntime.iOS-${IOS_SIM_OS_VERSION//./-}"
+          SIMULATOR_JSON=$(xcrun simctl list devices -j)
+          
+          echo "Available devices:"
+          echo "$SIMULATOR_JSON" | jq
+          
+          SIM_UID=$(echo "$SIMULATOR_JSON" | jq -r --arg NAME "$IOS_SIM_MODEL" --arg OS "$RUNTIME_KEY" '.devices[$OS][] | select(.name == $NAME) | .udid')
+          
+          if [[ -z "$SIM_UID" ]]; then
+            echo "Error: Simulator '$IOS_SIM_MODEL' with OS version '$IOS_SIM_OS_VERSION' not found."
+            echo "Ensure the simulator name and OS version are correct."
+            exit 1
+          fi
+        
+          echo "SIM_UID: $SIM_UID"
           xcrun simctl bootstatus $SIM_UID
 
       - name: Test against iOS
         if: always()
         id: maven_tests
-        run: mvn test -DisRemote=true -DplatformName=ios
+        run: mvn test -DisRemote=true -DplatformName=ios -DiOS_Simulator.capabilities.platformVersion=${{ env.IOS_SIM_OS_VERSION }}
 
       - name: Copy TestNG allure result to the Cucumber allure result
         if: always()
