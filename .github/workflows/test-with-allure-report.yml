@@ -22,6 +22,7 @@ on:
         options:
           - prod
           - stage
+  
 jobs:
   build-and-test-android:
     env:
@@ -212,7 +213,7 @@ jobs:
           path: target/allure-results
 
       - name: Generate Allure Report
-        uses: simple-elf/allure-report-action@v1.12
+        uses: GuitaristForEver/allure-v3-report-action@v1.1.0
         if: always()
         id: allure-report
         with:
