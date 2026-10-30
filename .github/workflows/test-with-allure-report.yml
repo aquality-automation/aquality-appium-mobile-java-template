@@ -213,7 +213,7 @@ jobs:
           path: target/allure-results
 
       - name: Generate Allure Report
-        uses: yuvalgabay/allure-v3-report-action@v1.1.0
+        uses: GuitaristForEver/allure-v3-report-action@v1.1.0
         if: always()
         id: allure-report
         with:
